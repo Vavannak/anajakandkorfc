@@ -21,11 +21,12 @@
             color: #fff;
             line-height: 1.5;
             overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* 2026 Futuristic Scrollbar */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         ::-webkit-scrollbar-track {
             background: #0a0a12;
@@ -35,25 +36,20 @@
             border-radius: 10px;
         }
 
-        /* Animated Gradient Background */
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Navigation - Glassmorphism 2026 */
+        /* Navigation - Mobile First */
         .navbar {
             position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             width: 100%;
-            background: rgba(5, 5, 15, 0.75);
+            background: rgba(5, 5, 15, 0.92);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
-            padding: 0.7rem 5%;
+            padding: 0.6rem 4%;
             border-bottom: 1px solid rgba(212, 175, 55, 0.3);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
         .nav-container {
@@ -68,26 +64,19 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
-        /* Circular Logo with 3D Effect */
         .logo-circle {
-            width: 50px;
-            height: 50px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             overflow: hidden;
             background: linear-gradient(135deg, #d4af37, #ffaa00);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 1px 2px rgba(255,255,255,0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .logo-circle:hover {
-            transform: scale(1.08) rotate(5deg);
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.8);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
         }
 
         .logo-circle img {
@@ -97,9 +86,9 @@
         }
 
         .logo-text h1 {
-            font-size: 1.2rem;
+            font-size: 0.95rem;
             font-weight: 800;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             background: linear-gradient(135deg, #fff, #d4af37);
             -webkit-background-clip: text;
             background-clip: text;
@@ -107,42 +96,53 @@
         }
 
         .logo-text p {
-            font-size: 0.55rem;
+            font-size: 0.45rem;
             color: #d4af37;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+        }
+
+        .menu-btn {
+            display: block;
+            font-size: 1.3rem;
+            cursor: pointer;
+            padding: 8px;
+            color: #d4af37;
         }
 
         .nav-links {
+            position: fixed;
+            top: 58px;
+            left: -100%;
+            width: 100%;
+            background: rgba(5, 5, 15, 0.98);
+            backdrop-filter: blur(20px);
+            flex-direction: column;
+            gap: 0.8rem;
+            padding: 1.2rem;
+            transition: 0.3s ease;
+            border-bottom: 1px solid #d4af37;
+            z-index: 999;
             display: flex;
-            gap: 1.5rem;
             list-style: none;
-            align-items: center;
-            flex-wrap: wrap;
+        }
+
+        .nav-links.active {
+            left: 0;
+        }
+
+        .nav-links li {
+            width: 100%;
+            text-align: center;
         }
 
         .nav-links a {
             color: #fff;
             text-decoration: none;
             font-weight: 500;
+            font-size: 0.9rem;
+            display: block;
+            padding: 8px;
             transition: all 0.3s;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #d4af37, #ffaa00);
-            transition: width 0.3s;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
         }
 
         .nav-links a:hover {
@@ -152,125 +152,74 @@
         .admin-btn {
             background: linear-gradient(135deg, #d4af37, #ffaa00);
             color: #0a0a0a !important;
-            padding: 0.4rem 1.2rem;
+            padding: 0.4rem 1rem !important;
             border-radius: 40px;
             font-weight: 700 !important;
-            box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-        }
-
-        .admin-btn::after {
-            display: none;
-        }
-
-        .admin-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(212,175,55,0.5);
-        }
-
-        .save-status {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.75rem;
-            z-index: 1000;
-            border-left: 3px solid #4caf50;
-            display: none;
-            font-weight: 500;
-        }
-
-        .menu-btn {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+            display: inline-block !important;
+            width: auto !important;
         }
 
         .lang-switch {
             display: flex;
-            gap: 0.3rem;
-            margin-left: 0.5rem;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 0.5rem;
         }
+        
         .lang-btn {
-            background: rgba(212,175,55,0.15);
+            background: rgba(212,175,55,0.2);
             border: 1px solid #d4af37;
             color: #d4af37;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 0.7rem;
             font-weight: 600;
-            transition: 0.3s;
-        }
-        .lang-btn.active, .lang-btn:hover {
-            background: #d4af37;
-            color: #05050b;
         }
 
-        /* Hero Section 2026 */
+        /* Hero Section */
         .hero {
             min-height: 100vh;
-            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600');
+            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://e.top4top.io/p_3731sfged1.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            position: relative;
+            padding-top: 60px;
         }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(212,175,55,0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        
+
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
-            padding: 1.5rem;
+            max-width: 90%;
+            padding: 1rem;
         }
-        
-        /* Hero Circular Logo with Animation */
+
         .hero-logo-circle {
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 1.5rem;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
             border-radius: 50%;
             overflow: hidden;
             background: linear-gradient(135deg, #d4af37, #ffaa00);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
             animation: floatLogo 3s ease-in-out infinite;
-            border: 3px solid rgba(255,255,255,0.2);
         }
 
         .hero-logo-circle img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .hero-logo-circle:hover img {
-            transform: scale(1.1);
         }
 
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+            50% { transform: translateY(-8px); }
         }
 
         .hero-badge {
@@ -278,367 +227,361 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212,175,55,0.5);
             display: inline-block;
-            padding: 0.4rem 1.2rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 50px;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
+            font-size: 0.65rem;
         }
-        
+
         .hero h1 {
-            font-size: 3rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            margin: 1rem 0;
-            line-height: 1.2;
-            text-shadow: 0 0 30px rgba(212,175,55,0.3);
+            margin: 0.8rem 0;
+            line-height: 1.3;
         }
-        
+
         .hero h1 span {
             background: linear-gradient(135deg, #d4af37, #ffaa00);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
+
         .hero p {
-            font-size: 1.1rem;
+            font-size: 0.85rem;
             color: #ccc;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            padding: 0 0.5rem;
         }
-        
+
+        .hero-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
         .btn {
-            padding: 0.8rem 1.8rem;
+            padding: 0.6rem 1.2rem;
             border-radius: 50px;
             font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.4rem;
             cursor: pointer;
             border: none;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #d4af37, #ffaa00);
             color: #0a0a0a;
-            box-shadow: 0 4px 15px rgba(212,175,55,0.4);
         }
-        
-        .btn-primary:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 25px rgba(212,175,55,0.6);
-        }
-        
+
         .btn-outline {
             border: 2px solid #d4af37;
             color: #d4af37;
             background: transparent;
-            backdrop-filter: blur(4px);
-        }
-        
-        .btn-outline:hover {
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            color: #05050b;
-            transform: translateY(-3px);
-            border-color: transparent;
         }
 
+        /* Sections */
         .section {
-            padding: 5rem 5%;
+            padding: 3rem 4%;
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-bottom: 3rem;
-            position: relative;
+            margin-bottom: 2rem;
         }
-        
+
         .section-title span {
             background: linear-gradient(135deg, #d4af37, #ffaa00);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-        
+
         .section-title::after {
             content: '';
             display: block;
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, #d4af37, #ffaa00, transparent);
-            margin: 1rem auto 0;
-            border-radius: 3px;
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #d4af37, transparent);
+            margin: 0.6rem auto 0;
         }
 
-        /* Cards with Glassmorphism */
+        /* About Section Mobile */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #d4af37;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: #888;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        /* Players Grid */
         .players-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
         }
-        
+
         .player-card {
-            background: rgba(20,20,35,0.5);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
+            background: rgba(20,20,35,0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s;
             border: 1px solid rgba(212,175,55,0.2);
         }
-        
-        .player-card:hover {
-            transform: translateY(-12px);
-            border-color: #d4af37;
-            box-shadow: 0 20px 40px rgba(212,175,55,0.2);
-        }
-        
+
         .player-image {
-            height: 280px;
+            height: 240px;
             background: linear-gradient(135deg, #1e1e2e, #12121c);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
         }
-        
+
         .player-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
         }
-        
-        .player-card:hover .player-image img {
-            transform: scale(1.05);
-        }
-        
+
         .player-image .no-photo i {
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: #d4af37;
         }
-        
+
         .player-info {
-            padding: 1.2rem;
+            padding: 1rem;
             text-align: center;
         }
-        
+
         .player-name {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 800;
         }
-        
+
         .player-role {
             color: #d4af37;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0.3rem 0;
+            letter-spacing: 1px;
+            margin: 0.2rem 0;
         }
-        
+
         .player-stats {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #aaa;
         }
 
-        /* Matches Styling */
+        /* Matches */
         .matches-container {
             background: rgba(20,20,35,0.4);
             backdrop-filter: blur(10px);
-            border-radius: 28px;
-            padding: 1.5rem;
-            border: 1px solid rgba(212,175,55,0.2);
+            border-radius: 20px;
+            padding: 1rem;
         }
-        
+
         .match-item {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            padding: 1rem;
+            text-align: center;
+            padding: 0.8rem;
             border-bottom: 1px solid rgba(255,255,255,0.05);
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            transition: background 0.3s;
+            gap: 0.5rem;
         }
-        
-        .match-item:hover {
-            background: rgba(212,175,55,0.05);
-            border-radius: 16px;
-        }
-        
+
         .match-date {
-            min-width: 90px;
             color: #d4af37;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
         }
-        
+
         .match-teams {
-            flex: 1;
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            align-items: center;
+            gap: 0.8rem;
             flex-wrap: wrap;
         }
-        
+
         .team {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
+            gap: 0.3rem;
+            font-size: 0.8rem;
         }
-        
+
         .vs {
             color: #d4af37;
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 0.7rem;
         }
-        
+
         .match-result {
-            min-width: 80px;
-            text-align: right;
             font-weight: 700;
+            font-size: 0.75rem;
         }
-        
+
         .win { color: #4caf50; }
 
         /* Achievements */
         .achievements-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1rem;
         }
-        
+
         .achievement-card {
             background: rgba(20,20,35,0.5);
             backdrop-filter: blur(8px);
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
-            border-radius: 24px;
+            border-radius: 16px;
             border: 1px solid rgba(212,175,55,0.2);
-            transition: all 0.3s;
-        }
-        
-        .achievement-card:hover {
-            border-color: #d4af37;
-            transform: translateY(-5px);
-            background: rgba(212,175,55,0.1);
-        }
-        
-        .achievement-card i {
-            font-size: 2.5rem;
-            color: #d4af37;
-            margin-bottom: 0.8rem;
         }
 
-        /* Contact Section 2026 */
+        .achievement-card i {
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 0.4rem;
+        }
+
+        .achievement-card h3 {
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .achievement-card p {
+            font-size: 0.65rem;
+            color: #888;
+        }
+
+        /* Contact Section */
         .contact-section {
             background: rgba(20,20,35,0.4);
             backdrop-filter: blur(12px);
-            border-radius: 32px;
-            padding: 2rem;
-            border: 1px solid rgba(212,175,55,0.3);
+            border-radius: 24px;
+            padding: 1.2rem;
         }
-        
+
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
         }
-        
+
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.2rem;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
         }
-        
+
         .contact-item i {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #d4af37;
-            width: 45px;
-            height: 45px;
+            width: 35px;
+            height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: rgba(212,175,55,0.1);
             border-radius: 50%;
         }
-        
+
+        .contact-item h4 {
+            font-size: 0.85rem;
+        }
+
+        .contact-item p {
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+
         .social-links {
             display: flex;
-            gap: 1rem;
-            margin: 1.5rem 0;
+            gap: 0.8rem;
+            justify-content: center;
+            margin: 1rem 0;
         }
-        
+
         .social-link {
             background: rgba(212,175,55,0.1);
-            width: 48px;
-            height: 48px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #d4af37;
             text-decoration: none;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             border: 1px solid rgba(212,175,55,0.3);
-            transition: all 0.3s;
         }
-        
-        .social-link:hover {
-            background: #d4af37;
-            color: #05050b;
-            transform: translateY(-4px) scale(1.05);
-        }
-        
-        /* Facebook Button 2026 */
+
         .facebook-page-btn {
             background: linear-gradient(135deg, #1877f2, #0e63d9);
             color: white;
-            padding: 0.9rem 1.8rem;
-            border-radius: 50px;
+            padding: 0.7rem 1.2rem;
+            border-radius: 40px;
             display: inline-flex;
             align-items: center;
-            gap: 0.8rem;
+            justify-content: center;
+            gap: 0.6rem;
             text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(24,119,242,0.3);
-            border: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            width: 100%;
+            margin-top: 0.5rem;
         }
-        
-        .facebook-page-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(24,119,242,0.5);
-            background: linear-gradient(135deg, #0e63d9, #1877f2);
-        }
-        
-        .facebook-page-btn i {
-            font-size: 1.3rem;
-        }
-        
+
         .contact-form input, .contact-form textarea {
             width: 100%;
             background: rgba(10,10,20,0.6);
             border: 1px solid rgba(212,175,55,0.3);
-            padding: 0.9rem;
-            border-radius: 16px;
+            padding: 0.7rem;
+            border-radius: 14px;
             color: white;
-            margin-bottom: 1rem;
-            transition: all 0.3s;
-            font-family: inherit;
-        }
-        
-        .contact-form input:focus, .contact-form textarea:focus {
-            outline: none;
-            border-color: #d4af37;
-            background: rgba(10,10,20,0.9);
-            box-shadow: 0 0 10px rgba(212,175,55,0.2);
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
         }
 
         /* Admin Modal */
@@ -649,111 +592,121 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.96);
             backdrop-filter: blur(8px);
             z-index: 2000;
             overflow-y: auto;
         }
-        
+
         .modal-content {
             max-width: 95%;
-            margin: 1rem auto;
+            margin: 0.8rem auto;
             background: #111118;
-            border-radius: 32px;
-            padding: 1.5rem;
+            border-radius: 24px;
+            padding: 1rem;
             border: 1px solid #d4af37;
         }
-        
+
         .admin-tabs {
             display: flex;
-            gap: 0.8rem;
+            gap: 0.5rem;
             flex-wrap: wrap;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
-        
+
         .tab-btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.4rem 0.9rem;
             background: #1e1e2a;
             border: 1px solid #d4af37;
             color: #d4af37;
-            border-radius: 40px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: 0.3s;
-            font-weight: 500;
+            font-size: 0.75rem;
         }
-        
-        .tab-btn.active, .tab-btn:hover {
+
+        .tab-btn.active {
             background: #d4af37;
             color: #05050b;
         }
-        
+
         .admin-form {
             background: #0a0a12;
-            padding: 1.2rem;
-            border-radius: 24px;
-            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 18px;
+            margin-bottom: 1rem;
         }
-        
+
+        .admin-form h3 {
+            font-size: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .admin-form input, .admin-form select {
+            width: 100%;
+            padding: 0.6rem;
+            margin-bottom: 0.6rem;
+            background: #1e1e2a;
+            border: 1px solid #3a3a4a;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.8rem;
+        }
+
         .admin-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
-            gap: 0.8rem;
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
         }
-        
+
         .admin-item-card {
             background: #0f0f18;
-            padding: 0.8rem;
-            border-radius: 16px;
+            padding: 0.7rem;
+            border-radius: 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
+            gap: 0.5rem;
         }
-        
+
         .icon-btn {
             background: none;
             border: none;
             color: #d4af37;
-            font-size: 1.2rem;
-            margin: 0 0.2rem;
+            font-size: 1rem;
+            padding: 0.3rem 0.5rem;
             cursor: pointer;
-            transition: 0.3s;
-            padding: 0.3rem;
-            border-radius: 8px;
         }
-        
-        .icon-btn:hover {
-            transform: scale(1.1);
-            background: rgba(212,175,55,0.2);
-        }
-        
+
         .icon-btn.delete { color: #dc3545; }
-        .icon-btn.delete:hover { background: rgba(220,53,69,0.2); }
-        
-        .loading {
-            text-align: center;
-            padding: 2rem;
-            color: #d4af37;
+
+        .save-status {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            z-index: 1000;
+            border-left: 3px solid #4caf50;
+            display: none;
         }
 
         .footer {
             background: #03030a;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             border-top: 1px solid rgba(212,175,55,0.2);
         }
-        
+
         .footer-logo-circle {
-            width: 55px;
-            height: 55px;
-            margin: 0 auto 0.8rem;
+            width: 45px;
+            height: 45px;
+            margin: 0 auto 0.5rem;
             border-radius: 50%;
             overflow: hidden;
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
         .footer-logo-circle img {
@@ -762,39 +715,93 @@
             object-fit: cover;
         }
 
-        @media (max-width: 768px) {
-            .menu-btn { display: block; }
+        .loading {
+            text-align: center;
+            padding: 1.5rem;
+            color: #d4af37;
+            font-size: 0.85rem;
+        }
+
+        /* Tablet and up */
+        @media (min-width: 768px) {
+            .menu-btn {
+                display: none;
+            }
+
             .nav-links {
-                position: fixed;
-                top: 65px;
-                left: -100%;
-                width: 100%;
-                background: rgba(5,5,15,0.98);
-                backdrop-filter: blur(20px);
-                flex-direction: column;
+                position: static;
+                width: auto;
+                background: transparent;
+                backdrop-filter: none;
+                flex-direction: row;
                 gap: 1.2rem;
-                padding: 1.5rem;
-                transition: 0.3s;
-                border-bottom: 1px solid #d4af37;
+                padding: 0;
+                border-bottom: none;
+                display: flex;
             }
-            .nav-links.active { left: 0; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2rem; }
+
+            .nav-links li {
+                width: auto;
+            }
+
+            .nav-links a {
+                padding: 0;
+                font-size: 0.85rem;
+            }
+
+            .lang-switch {
+                margin-top: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
             .hero-logo-circle {
-                width: 120px;
-                height: 120px;
+                width: 140px;
+                height: 140px;
             }
-            .logo-circle {
-                width: 40px;
-                height: 40px;
+
+            .section-title {
+                font-size: 2rem;
             }
-            .section-title { font-size: 1.8rem; }
+
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .match-item {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+
+            .admin-items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero-logo-circle {
+                width: 160px;
+                height: 160px;
+            }
         }
     </style>
 </head>
 <body>
 
-<div id="saveStatus" class="save-status">✅ បានរក្សាទុក / Saved</div>
+<div id="saveStatus" class="save-status">✅ Saved</div>
 
 <nav class="navbar">
     <div class="nav-container">
@@ -838,21 +845,21 @@
 
 <section id="about" class="section">
     <h2 class="section-title"><span data-key="aboutUs">អំពីយើង</span></h2>
-    <div class="about-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+    <div class="about-grid">
         <div class="about-text">
             <p data-key="aboutText1"><strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Cambodia's leading eFootball esports organization.</p>
-            <p data-key="aboutText2" style="margin-top:1rem;">Founded in 2024, our mission is to elevate Cambodian esports to the international stage.</p>
-            <div class="stats" style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem;">
+            <p data-key="aboutText2" style="margin-top:0.8rem;">Founded in 2024, our mission is to elevate Cambodian esports to the international stage.</p>
+            <div class="stats">
                 <div><div class="stat-number" id="statTournaments">0</div><div class="stat-label" data-key="tournamentsWon">Tournaments Won</div></div>
                 <div><div class="stat-number" id="statPlayers">0</div><div class="stat-label" data-key="players">Players</div></div>
                 <div><div class="stat-number" id="statMatches">0</div><div class="stat-label" data-key="matchesPlayed">Matches Played</div></div>
             </div>
         </div>
-        <div class="about-image"><img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600" style="width:100%; border-radius:24px;" alt="arena"></div>
+        <div class="about-image"><img src="https://e.top4top.io/p_3731sfged1.jpg" alt="arena"></div>
     </div>
 </section>
 
-<section id="players" class="section"><h2 class="section-title"><span data-key="ourPlayers">កីឡាកររបស់យើង</span></h2><p class="section-subtitle" style="text-align:center; color:#aaa; margin-bottom:1.5rem;" data-key="meetWarriors">Meet the warriors of Anajak Angkor</p><div id="playersContainer" class="players-grid"><div class="loading">Loading players...</div></div></section>
+<section id="players" class="section"><h2 class="section-title"><span data-key="ourPlayers">កីឡាកររបស់យើង</span></h2><p class="section-subtitle" style="text-align:center; color:#aaa; margin-bottom:1rem; font-size:0.75rem;" data-key="meetWarriors">Meet the warriors of Anajak Angkor</p><div id="playersContainer" class="players-grid"><div class="loading">Loading players...</div></div></section>
 <section id="matches" class="section"><h2 class="section-title"><span data-key="matchSchedule">កាលវិភាគប្រកួត</span></h2><div id="matchesContainer" class="matches-container"><div class="loading">Loading matches...</div></div></section>
 <section id="achievements" class="section"><h2 class="section-title"><span data-key="ourAchievements">សមិទ្ធផល</span></h2><div id="achievementsContainer" class="achievements-grid"><div class="loading">Loading achievements...</div></div></section>
 
@@ -861,29 +868,25 @@
     <div class="contact-section">
         <div class="contact-grid">
             <div class="contact-info">
-                <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><h4>📍 ក្រចេះ / Kratie, Cambodia</h4><p>Esports Training Hub</p></div></div>
-                <div class="contact-item"><i class="fas fa-envelope"></i><div><h4>📧 anajak.angkor@email.com</h4></div></div>
-                <div class="contact-item"><i class="fas fa-phone-alt"></i><div><h4>📞 +855 12 345 678</h4></div></div>
+                <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><h4>📍 ក្រចេះ / Kratie</h4><p>Cambodia</p></div></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i><div><h4>📧 anajak.angkor@gmail.com</h4></div></div>
+                <div class="contact-item"><i class="fas fa-phone-alt"></i><div><h4>📞 +855 66446963</h4></div></div>
                 <div class="social-links">
                     <a href="https://www.facebook.com/share/1AeADpY6en/?mibextid=wwXIfr" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
                 </div>
-                <div class="facebook-embed">
-                    <a href="https://www.facebook.com/share/1AeADpY6en/?mibextid=wwXIfr" target="_blank" class="facebook-page-btn">
-                        <i class="fab fa-facebook-f"></i> ចូលរួមជាមួយយើង / Join us on Facebook
-                    </a>
-                    <p style="margin-top:1rem; font-size:0.75rem; color:#aaa;">ទទួលបានព័ត៌មានថ្មីៗ វីដេអូ និងការប្រកួតផ្ទាល់!</p>
-                </div>
+                <a href="https://www.facebook.com/share/1AeADpY6en/?mibextid=wwXIfr" target="_blank" class="facebook-page-btn">
+                    <i class="fab fa-facebook-f"></i> Join us on Facebook
+                </a>
             </div>
             <div class="contact-form">
-                <h3><i class="fas fa-paper-plane"></i> <span data-key="sendMessage">ផ្ញើសារមកយើង / Send a message</span></h3>
+                <h3 style="font-size:1rem; margin-bottom:0.8rem;"><i class="fas fa-paper-plane"></i> <span data-key="sendMessage">Send a message</span></h3>
                 <form id="contactForm">
-                    <input type="text" id="contactName" placeholder="ឈ្មោះ / Your Name" required>
-                    <input type="email" id="contactEmail" placeholder="អ៊ីមែល / Email" required>
-                    <textarea rows="3" id="contactMsg" placeholder="សារ / Message"></textarea>
-                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-envelope"></i> ផ្ញើ / Send</button>
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                    <textarea rows="3" id="contactMsg" placeholder="Your Message"></textarea>
+                    <button type="submit" class="btn btn-primary" style="width:100%"><i class="fas fa-envelope"></i> Send</button>
                 </form>
             </div>
         </div>
@@ -894,14 +897,14 @@
     <div class="footer-logo-circle">
         <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="Anajak Angkor Logo">
     </div>
-    <div class="logo-text" style="margin-top: 0.5rem;">
-        <h1 style="font-size:1rem;">អាណាចក្រអង្គរ</h1>
+    <div class="logo-text" style="margin-top: 0.3rem;">
+        <h1 style="font-size:0.9rem;">អាណាចក្រអង្គរ</h1>
         <p>ANAJAK ANGKOR</p>
     </div>
-    <p style="margin-top: 0.5rem; font-size: 0.7rem; color:#666;" data-key="copyright">&copy; 2026 Anajak Angkor. All rights reserved.</p>
+    <p style="margin-top: 0.5rem; font-size: 0.6rem; color:#666;" data-key="copyright">&copy; 2026 Anajak Angkor. All rights reserved.</p>
 </footer>
 
-<div id="adminModal" class="modal"><div class="modal-content"><div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;"><h2><i class="fas fa-crown"></i> Admin Panel</h2><span class="close-modal" style="font-size:2rem; cursor:pointer;">&times;</span></div><div id="adminContent"></div></div></div>
+<div id="adminModal" class="modal"><div class="modal-content"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;"><h2 style="font-size:1.2rem;"><i class="fas fa-crown"></i> Admin Panel</h2><span class="close-modal" style="font-size:1.8rem; cursor:pointer;">&times;</span></div><div id="adminContent"></div></div></div>
 
 <script>
     // Simple database using localStorage
@@ -1001,7 +1004,7 @@
     
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
+        return String(str).replace(/[&<>]/g, function(m) {
             if (m === '&') return '&amp;';
             if (m === '<') return '&lt;';
             if (m === '>') return '&gt;';
@@ -1161,7 +1164,7 @@
         if (playersList) {
             playersList.innerHTML = appData.players.map(p => `
                 <div class="admin-item-card">
-                    <div><h4>${escapeHtml(p.name)}</h4><p>${escapeHtml(p.role)}</p></div>
+                    <div><h4 style="font-size:0.85rem;">${escapeHtml(p.name)}</h4><p style="font-size:0.7rem;">${escapeHtml(p.role)}</p></div>
                     <div>
                         <button class="icon-btn" onclick="uploadPhotoForPlayer(${p.id})"><i class="fas fa-camera"></i></button>
                         <button class="icon-btn delete" onclick="deletePlayerHandler(${p.id})"><i class="fas fa-trash"></i></button>
@@ -1174,7 +1177,7 @@
         if (matchesList) {
             matchesList.innerHTML = appData.matches.map(m => `
                 <div class="admin-item-card">
-                    <div><h4>${escapeHtml(m.opponent)}</h4><p>${escapeHtml(m.date)} - ${escapeHtml(m.result)}</p></div>
+                    <div><h4 style="font-size:0.85rem;">${escapeHtml(m.opponent)}</h4><p style="font-size:0.7rem;">${escapeHtml(m.date)} - ${escapeHtml(m.result)}</p></div>
                     <div><button class="icon-btn delete" onclick="deleteMatchHandler(${m.id})"><i class="fas fa-trash"></i></button></div>
                 </div>
             `).join('');
@@ -1184,7 +1187,7 @@
         if (achievementsList) {
             achievementsList.innerHTML = appData.achievements.map(a => `
                 <div class="admin-item-card">
-                    <div><h4>${escapeHtml(a.title)}</h4><p>${escapeHtml(a.year)}</p></div>
+                    <div><h4 style="font-size:0.85rem;">${escapeHtml(a.title)}</h4><p style="font-size:0.7rem;">${escapeHtml(a.year)}</p></div>
                     <div><button class="icon-btn delete" onclick="deleteAchievementHandler(${a.id})"><i class="fas fa-trash"></i></button></div>
                 </div>
             `).join('');
@@ -1272,19 +1275,19 @@
                 <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
             </div>
             <div id="playersTab" class="tab-pane active">
-                <div class="admin-form"><h3>Add Player</h3><form id="addPlayerForm"><input placeholder="Name" id="playerName" required><input placeholder="Role" id="playerRole"><input placeholder="Stats" id="playerStats"><input type="file" id="playerPhoto" accept="image/*"><button class="btn btn-primary">Add</button><button type="button" class="btn btn-danger" onclick="deleteAllHandler('players')">Delete All</button></form></div>
-                <h3>Current Players</h3><div id="playersList"></div>
+                <div class="admin-form"><h3>Add Player</h3><form id="addPlayerForm"><input placeholder="Name" id="playerName" required><input placeholder="Role" id="playerRole"><input placeholder="Stats" id="playerStats"><input type="file" id="playerPhoto" accept="image/*"><button class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Add Player</button><button type="button" class="btn btn-danger" style="width:100%; margin-top:0.5rem;" onclick="deleteAllHandler('players')">Delete All Players</button></form></div>
+                <h3 style="font-size:1rem; margin:1rem 0 0.5rem;">Current Players</h3><div id="playersList"></div>
             </div>
             <div id="matchesTab" class="tab-pane">
-                <div class="admin-form"><h3>Add Match</h3><form id="addMatchForm"><input placeholder="Date" id="matchDate"><input placeholder="Opponent" id="matchOpponent"><select id="matchResult"><option>Upcoming</option><option>WIN</option><option>LOSS</option></select><button class="btn btn-primary">Add</button><button type="button" class="btn btn-danger" onclick="deleteAllHandler('matches')">Delete All</button></form></div>
-                <h3>Current Matches</h3><div id="matchesList"></div>
+                <div class="admin-form"><h3>Add Match</h3><form id="addMatchForm"><input placeholder="Date (e.g., Apr 10)" id="matchDate"><input placeholder="Opponent" id="matchOpponent"><select id="matchResult"><option>Upcoming</option><option>WIN</option><option>LOSS</option></select><button class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Add Match</button><button type="button" class="btn btn-danger" style="width:100%; margin-top:0.5rem;" onclick="deleteAllHandler('matches')">Delete All Matches</button></form></div>
+                <h3 style="font-size:1rem; margin:1rem 0 0.5rem;">Current Matches</h3><div id="matchesList"></div>
             </div>
             <div id="achievementsTab" class="tab-pane">
-                <div class="admin-form"><h3>Add Achievement</h3><form id="addAchievementForm"><input placeholder="Title" id="achievementTitle"><input placeholder="Year" id="achievementYear"><input placeholder="Icon" id="achievementIcon" value="fa-trophy"><button class="btn btn-primary">Add</button><button type="button" class="btn btn-danger" onclick="deleteAllHandler('achievements')">Delete All</button></form></div>
-                <h3>Current Achievements</h3><div id="achievementsList"></div>
+                <div class="admin-form"><h3>Add Achievement</h3><form id="addAchievementForm"><input placeholder="Title" id="achievementTitle"><input placeholder="Year" id="achievementYear"><input placeholder="Icon (fa-trophy)" id="achievementIcon" value="fa-trophy"><button class="btn btn-primary" style="width:100%; margin-top:0.5rem;">Add Achievement</button><button type="button" class="btn btn-danger" style="width:100%; margin-top:0.5rem;" onclick="deleteAllHandler('achievements')">Delete All Achievements</button></form></div>
+                <h3 style="font-size:1rem; margin:1rem 0 0.5rem;">Current Achievements</h3><div id="achievementsList"></div>
             </div>
             <div id="settingsTab" class="tab-pane">
-                <div class="admin-form"><h3>Team Stats</h3><form id="settingsForm"><input type="number" id="settingsTournaments" value="${appData.teamInfo.tournamentsWon}"><input type="number" id="settingsMatches" value="${appData.teamInfo.totalMatches}"><button class="btn btn-primary">Update</button></form><button onclick="logout()" class="btn btn-danger">Logout</button></div>
+                <div class="admin-form"><h3>Team Statistics</h3><form id="settingsForm"><input type="number" id="settingsTournaments" placeholder="Tournaments Won" value="${appData.teamInfo.tournamentsWon}"><input type="number" id="settingsMatches" placeholder="Total Matches" value="${appData.teamInfo.totalMatches}"><button class="btn btn-primary" style="width:100%;">Update Stats</button></form><button onclick="logout()" class="btn btn-danger" style="width:100%; margin-top:0.8rem;">Logout</button></div>
             </div>
         `;
         refreshAdminLists();
@@ -1305,10 +1308,10 @@
     
     function showLoginModal() {
         document.getElementById('adminContent').innerHTML = `
-            <div style="max-width:350px;margin:0 auto;"><h3>Admin Login</h3><form id="loginForm"><input type="text" id="loginUsername" placeholder="Username"><input type="password" id="loginPassword" placeholder="Password"><button class="btn btn-primary" style="width:100%">Login</button></form><p style="color:#888;margin-top:1rem;">Demo: admin / admin123</p></div>`;
+            <div style="max-width:300px; margin:0 auto;"><h3 style="text-align:center; margin-bottom:1rem;">Admin Login</h3><form id="loginForm"><input type="text" id="loginUsername" placeholder="Username" style="width:100%; padding:0.7rem; margin-bottom:0.8rem; background:#1e1e2a; border:1px solid #d4af37; border-radius:12px; color:white;"><input type="password" id="loginPassword" placeholder="Password" style="width:100%; padding:0.7rem; margin-bottom:1rem; background:#1e1e2a; border:1px solid #d4af37; border-radius:12px; color:white;"><button class="btn btn-primary" style="width:100%;">Login</button></form><p style="text-align:center; margin-top:1rem; color:#888;">Demo: admin / admin123</p></div>`;
         document.getElementById('loginForm').onsubmit = (e) => {
             e.preventDefault();
-            if(document.getElementById('loginUsername').value === 'admin' && document.getElementById('loginPassword').value === 'admin123') {
+            if(document.getElementById('loginUsername').value === 'admin' && document.getElementById('loginPassword').value === 'admin168') {
                 isLoggedIn = true;
                 showAdminPanel();
             } else alert('Invalid credentials');
@@ -1330,21 +1333,29 @@
     window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
     
     // Mobile menu
-    document.querySelector('.menu-btn').addEventListener('click', () => document.querySelector('.nav-links').classList.toggle('active'));
+    const menuBtn = document.querySelector('.menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('active'));
+    });
     
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
         if(this.getAttribute('href') !== '#') {
             e.preventDefault();
-            document.querySelector('.nav-links').classList.remove('active');
-            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            navLinks.classList.remove('active');
+            const target = document.querySelector(this.getAttribute('href'));
+            if(target) target.scrollIntoView({ behavior: 'smooth' });
         }
     }));
     
     // Contact form
     document.getElementById('contactForm').addEventListener('submit', (e) => {
         e.preventDefault();
-        alert(currentLang === 'km' ? 'សាររបស់អ្នកបានផ្ញើដោយជោគជ័យ! យើងនឹងទាក់ទងអ្នកវិញ។' : 'Message sent successfully! We will contact you soon.');
+        alert(currentLang === 'km' ? 'សាររបស់អ្នកបានផ្ញើដោយជោគជ័យ!' : 'Message sent successfully!');
         e.target.reset();
     });
     
