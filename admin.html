@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Khmer&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* (Same as public.html but simplified for admin) */
+        /* (same CSS as previous admin panel – keep the same) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', 'Khmer', sans-serif; background: #03030a; color: #fff; line-height: 1.5; }
         .navbar { position: fixed; top: 0; width: 100%; background: rgba(5,5,15,0.95); backdrop-filter: blur(20px); padding: 0.6rem 4%; border-bottom: 1px solid #d4af37; z-index: 1000; }
@@ -60,48 +60,9 @@
 <div id="adminApp" class="container"></div>
 
 <script>
-    const STORAGE_KEY = 'anajak_angkor_data';
-
-    const defaultData = {
-        players: [
-            { id: 1, name: "SOKHA \"GODZILLA\"", role: "Captain / Striker", stats: "🏅 8 Titles • ⚽ 245 Goals", photo: null, defaultIcon: "fa-user-ninja" },
-            { id: 2, name: "RITHY \"PHANTOM\"", role: "Midfielder", stats: "🏅 6 Titles • 🎯 112 Assists", photo: null, defaultIcon: "fa-user-astronaut" },
-            { id: 3, name: "VICHEKA \"SHADOW\"", role: "Defender", stats: "🏅 5 Titles • 🛡️ 89 Clean Sheets", photo: null, defaultIcon: "fa-user-secret" },
-            { id: 4, name: "DARA \"WIZARD\"", role: "Goalkeeper", stats: "🏅 7 Titles • 🧤 156 Saves", photo: null, defaultIcon: "fa-user-graduate" }
-        ],
-        matches: [
-            { id: 1, date: "Mar 25, 2026", opponent: "Phoenix Esports", result: "3 - 1 WIN", status: "win" },
-            { id: 2, date: "Mar 28, 2026", opponent: "Dragon FC", result: "2 - 0 WIN", status: "win" },
-            { id: 3, date: "Apr 2, 2026", opponent: "Tiger Gaming", result: "Upcoming", status: "upcoming" },
-            { id: 4, date: "Apr 5, 2026", opponent: "Khmer Warriors", result: "Upcoming", status: "upcoming" }
-        ],
-        achievements: [
-            { id: 1, title: "eFootball Cambodia Champions", year: "2025", icon: "fa-trophy" },
-            { id: 2, title: "SEA Invitational Runner-up", year: "2025", icon: "fa-medal" },
-            { id: 3, title: "Kingdom League Winners", year: "2024, 2025", icon: "fa-crown" },
-            { id: 4, title: "Undefeated Streak Record", year: "21 Matches (2025)", icon: "fa-chart-line" }
-        ],
-        teamInfo: { tournamentsWon: 15, totalMatches: 45 }
-    };
-
-    let appData = { ...defaultData };
+    const API_URL = 'api.php';
+    let appData = null;
     let isLoggedIn = false;
-
-    function loadData() {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-            try {
-                appData = JSON.parse(saved);
-            } catch(e) {}
-        } else {
-            saveData();
-        }
-    }
-
-    function saveData() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-        showSaveStatus();
-    }
 
     function showSaveStatus() {
         const el = document.getElementById('saveStatus');
@@ -109,7 +70,37 @@
         setTimeout(() => el.style.display = 'none', 2000);
     }
 
-    // Admin actions
+    async function loadData() {
+        try {
+            const res = await fetch(API_URL);
+            appData = await res.json();
+            if (isLoggedIn) refreshAdminLists();
+        } catch (err) {
+            console.error(err);
+            alert('Error loading data');
+        }
+    }
+
+    async function saveData() {
+        try {
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password: 'admin123', data: appData })
+            });
+            const result = await res.json();
+            if (result.success) {
+                showSaveStatus();
+            } else {
+                alert('Save failed: ' + (result.error || 'Unknown error'));
+            }
+        } catch (err) {
+            alert('Network error');
+            console.error(err);
+        }
+    }
+
+    // Admin actions (modify appData and then save)
     function addPlayer(player) {
         const newId = Date.now();
         appData.players.push({ ...player, id: newId });
@@ -339,13 +330,13 @@
                 <p style="margin-top:1rem; font-size:0.8rem; color:#888;">Demo: admin / admin123</p>
             </div>
         `;
-        document.getElementById('loginForm').onsubmit = (e) => {
+        document.getElementById('loginForm').onsubmit = async (e) => {
             e.preventDefault();
             const user = document.getElementById('username').value;
             const pass = document.getElementById('password').value;
             if (user === 'admin' && pass === 'admin123') {
                 isLoggedIn = true;
-                loadData();
+                await loadData();
                 showAdminPanel();
             } else {
                 alert('Invalid credentials');
