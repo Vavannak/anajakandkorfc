@@ -8,800 +8,156 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Khmer&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ====== Mobile-First Styles (same as before) ====== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', 'Khmer', sans-serif; background: #03030a; color: #fff; line-height: 1.5; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a12; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #d4af37, #ffaa00); border-radius: 10px; }
 
-        body {
-            font-family: 'Inter', 'Khmer', sans-serif;
-            background: #03030a;
-            color: #fff;
-            line-height: 1.5;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a12;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            border-radius: 10px;
-        }
-
-        /* Navigation - Mobile First */
+        /* Navigation */
         .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            width: 100%;
-            background: rgba(5, 5, 15, 0.92);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 1000;
-            padding: 0.6rem 4%;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            position: fixed; top: 0; left: 0; right: 0; width: 100%;
+            background: rgba(5, 5, 15, 0.92); backdrop-filter: blur(20px); z-index: 1000;
+            padding: 0.6rem 4%; border-bottom: 1px solid rgba(212, 175, 55, 0.3);
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .logo-circle {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            overflow: hidden;
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-        }
-
-        .logo-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .logo-text h1 {
-            font-size: 0.95rem;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #fff, #d4af37);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .logo-text p {
-            font-size: 0.45rem;
-            color: #d4af37;
-            letter-spacing: 1px;
-        }
-
-        .menu-btn {
-            display: block;
-            font-size: 1.3rem;
-            cursor: pointer;
-            padding: 8px;
-            color: #d4af37;
-        }
-
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .logo { display: flex; align-items: center; gap: 8px; }
+        .logo-circle { width: 38px; height: 38px; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #d4af37, #ffaa00); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(212,175,55,0.4); }
+        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .logo-text h1 { font-size: 0.95rem; font-weight: 800; background: linear-gradient(135deg, #fff, #d4af37); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .logo-text p { font-size: 0.45rem; color: #d4af37; letter-spacing: 1px; }
+        .menu-btn { display: block; font-size: 1.3rem; cursor: pointer; padding: 8px; color: #d4af37; }
         .nav-links {
-            position: fixed;
-            top: 58px;
-            left: -100%;
-            width: 100%;
-            background: rgba(5, 5, 15, 0.98);
-            backdrop-filter: blur(20px);
-            flex-direction: column;
-            gap: 0.8rem;
-            padding: 1.2rem;
-            transition: 0.3s ease;
-            border-bottom: 1px solid #d4af37;
-            z-index: 999;
-            display: flex;
-            list-style: none;
+            position: fixed; top: 58px; left: -100%; width: 100%; background: rgba(5,5,15,0.98);
+            backdrop-filter: blur(20px); flex-direction: column; gap: 0.8rem; padding: 1.2rem;
+            transition: 0.3s ease; border-bottom: 1px solid #d4af37; z-index: 999; display: flex; list-style: none;
         }
+        .nav-links.active { left: 0; }
+        .nav-links li { width: 100%; text-align: center; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.9rem; display: block; padding: 8px; }
+        .nav-links a:hover { color: #d4af37; }
+        .admin-btn { background: linear-gradient(135deg, #d4af37, #ffaa00); color: #0a0a0a !important; padding: 0.4rem 1rem !important; border-radius: 40px; font-weight: 700 !important; display: inline-block !important; width: auto !important; }
+        .lang-switch { display: flex; gap: 0.5rem; justify-content: center; margin-top: 0.5rem; }
+        .lang-btn { background: rgba(212,175,55,0.2); border: 1px solid #d4af37; color: #d4af37; padding: 0.3rem 0.8rem; border-radius: 30px; cursor: pointer; font-size: 0.7rem; font-weight: 600; }
 
-        .nav-links.active {
-            left: 0;
-        }
-
-        .nav-links li {
-            width: 100%;
-            text-align: center;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.9rem;
-            display: block;
-            padding: 8px;
-            transition: all 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #d4af37;
-        }
-
-        .admin-btn {
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            color: #0a0a0a !important;
-            padding: 0.4rem 1rem !important;
-            border-radius: 40px;
-            font-weight: 700 !important;
-            display: inline-block !important;
-            width: auto !important;
-        }
-
-        .lang-switch {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-            margin-top: 0.5rem;
-        }
-        
-        .lang-btn {
-            background: rgba(212,175,55,0.2);
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            padding: 0.3rem 0.8rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://e.top4top.io/p_3731sfged1.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding-top: 60px;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 90%;
-            padding: 1rem;
-        }
-
-        .hero-logo-circle {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 1rem;
-            border-radius: 50%;
-            overflow: hidden;
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
-            animation: floatLogo 3s ease-in-out infinite;
-        }
-
-        .hero-logo-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .hero-badge {
-            background: rgba(212,175,55,0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212,175,55,0.5);
-            display: inline-block;
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.65rem;
-        }
-
-        .hero h1 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin: 0.8rem 0;
-            line-height: 1.3;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            font-size: 0.85rem;
-            color: #ccc;
-            margin-bottom: 1.5rem;
-            padding: 0 0.5rem;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
-            font-size: 0.8rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            color: #0a0a0a;
-        }
-
-        .btn-outline {
-            border: 2px solid #d4af37;
-            color: #d4af37;
-            background: transparent;
-        }
+        /* Hero */
+        .hero { min-height: 100vh; background: radial-gradient(circle at 20% 30%, rgba(0,0,0,0.6), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 60px; }
+        .hero-content { max-width: 90%; padding: 1rem; }
+        .hero-logo-circle { width: 100px; height: 100px; margin: 0 auto 1rem; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #d4af37, #ffaa00); box-shadow: 0 0 30px rgba(212,175,55,0.4); animation: floatLogo 3s ease-in-out infinite; }
+        .hero-logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes floatLogo { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-8px)} }
+        .hero-badge { background: rgba(212,175,55,0.2); backdrop-filter: blur(10px); border: 1px solid rgba(212,175,55,0.5); display: inline-block; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.65rem; }
+        .hero h1 { font-size: 1.6rem; font-weight: 800; margin: 0.8rem 0; }
+        .hero h1 span { background: linear-gradient(135deg, #d4af37, #ffaa00); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .hero p { font-size: 0.85rem; color: #ccc; margin-bottom: 1.5rem; }
+        .hero-buttons { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+        .btn { padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; border: none; font-family: inherit; font-size: 0.8rem; }
+        .btn-primary { background: linear-gradient(135deg, #d4af37, #ffaa00); color: #0a0a0a; }
+        .btn-outline { border: 2px solid #d4af37; color: #d4af37; background: transparent; }
 
         /* Sections */
-        .section {
-            padding: 3rem 4%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
+        .section { padding: 3rem 4%; max-width: 1400px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 1.6rem; font-weight: 700; margin-bottom: 2rem; }
+        .section-title span { background: linear-gradient(135deg, #d4af37, #ffaa00); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 2px; background: linear-gradient(90deg, #d4af37, transparent); margin: 0.6rem auto 0; }
 
-        .section-title {
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-        }
+        /* About */
+        .about-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .about-text p { font-size: 0.85rem; margin-bottom: 1rem; }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; text-align: center; margin-top: 1rem; }
+        .stat-number { font-size: 1.4rem; font-weight: 800; color: #d4af37; }
+        .stat-label { font-size: 0.65rem; color: #888; }
+        .about-image img { width: 100%; border-radius: 20px; }
 
-        .section-title span {
-            background: linear-gradient(135deg, #d4af37, #ffaa00);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, #d4af37, transparent);
-            margin: 0.6rem auto 0;
-        }
-
-        /* About Section Mobile */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .about-text p {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.8rem;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: #d4af37;
-        }
-
-        .stat-label {
-            font-size: 0.65rem;
-            color: #888;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 20px;
-        }
-
-        /* Players Grid */
-        .players-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.2rem;
-        }
-
-        .player-card {
-            background: rgba(20,20,35,0.6);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s;
-            border: 1px solid rgba(212,175,55,0.2);
-        }
-
-        .player-image {
-            height: 240px;
-            background: linear-gradient(135deg, #1e1e2e, #12121c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .player-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .player-image .no-photo i {
-            font-size: 3.5rem;
-            color: #d4af37;
-        }
-
-        .player-info {
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .player-name {
-            font-size: 1rem;
-            font-weight: 800;
-        }
-
-        .player-role {
-            color: #d4af37;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0.2rem 0;
-        }
-
-        .player-stats {
-            font-size: 0.7rem;
-            color: #aaa;
-        }
+        /* Players */
+        .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+        .player-card { background: rgba(20,20,35,0.6); backdrop-filter: blur(10px); border-radius: 20px; overflow: hidden; border: 1px solid rgba(212,175,55,0.2); transition: transform 0.3s; }
+        .player-card:hover { transform: translateY(-5px); border-color: #d4af37; }
+        .player-image { height: 240px; background: linear-gradient(135deg, #1e1e2e, #12121c); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .player-image img { width: 100%; height: 100%; object-fit: cover; }
+        .player-image .no-photo i { font-size: 3.5rem; color: #d4af37; }
+        .player-info { padding: 1rem; text-align: center; }
+        .player-name { font-size: 1rem; font-weight: 800; }
+        .player-role { color: #d4af37; font-size: 0.65rem; text-transform: uppercase; margin: 0.2rem 0; }
+        .player-stats { font-size: 0.7rem; color: #aaa; }
 
         /* Matches */
-        .matches-container {
-            background: rgba(20,20,35,0.4);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1rem;
-        }
-
-        .match-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            gap: 0.5rem;
-        }
-
-        .match-date {
-            color: #d4af37;
-            font-weight: 600;
-            font-size: 0.7rem;
-        }
-
-        .match-teams {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-        }
-
-        .team {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.8rem;
-        }
-
-        .vs {
-            color: #d4af37;
-            font-weight: 800;
-            font-size: 0.7rem;
-        }
-
-        .match-result {
-            font-weight: 700;
-            font-size: 0.75rem;
-        }
-
+        .matches-container { background: rgba(20,20,35,0.4); backdrop-filter: blur(10px); border-radius: 20px; padding: 1rem; }
+        .match-item { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.05); gap: 0.5rem; }
+        .match-date { color: #d4af37; font-weight: 600; font-size: 0.7rem; }
+        .match-teams { display: flex; justify-content: center; align-items: center; gap: 0.8rem; flex-wrap: wrap; }
+        .team { display: flex; align-items: center; gap: 0.3rem; font-size: 0.8rem; }
+        .vs { color: #d4af37; font-weight: 800; font-size: 0.7rem; }
+        .match-result { font-weight: 700; font-size: 0.75rem; }
         .win { color: #4caf50; }
 
         /* Achievements */
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 1rem;
-        }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+        .achievement-card { background: rgba(20,20,35,0.5); backdrop-filter: blur(8px); padding: 1rem; text-align: center; border-radius: 16px; border: 1px solid rgba(212,175,55,0.2); }
+        .achievement-card i { font-size: 1.8rem; color: #d4af37; margin-bottom: 0.4rem; }
+        .achievement-card h3 { font-size: 0.8rem; margin-bottom: 0.2rem; }
+        .achievement-card p { font-size: 0.65rem; color: #888; }
 
-        .achievement-card {
-            background: rgba(20,20,35,0.5);
-            backdrop-filter: blur(8px);
-            padding: 1rem;
-            text-align: center;
-            border-radius: 16px;
-            border: 1px solid rgba(212,175,55,0.2);
-        }
-
-        .achievement-card i {
-            font-size: 1.8rem;
-            color: #d4af37;
-            margin-bottom: 0.4rem;
-        }
-
-        .achievement-card h3 {
-            font-size: 0.8rem;
-            margin-bottom: 0.2rem;
-        }
-
-        .achievement-card p {
-            font-size: 0.65rem;
-            color: #888;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            background: rgba(20,20,35,0.4);
-            backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 1.2rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-item i {
-            font-size: 1.2rem;
-            color: #d4af37;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(212,175,55,0.1);
-            border-radius: 50%;
-        }
-
-        .contact-item h4 {
-            font-size: 0.85rem;
-        }
-
-        .contact-item p {
-            font-size: 0.7rem;
-            color: #aaa;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 0.8rem;
-            justify-content: center;
-            margin: 1rem 0;
-        }
-
-        .social-link {
-            background: rgba(212,175,55,0.1);
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4af37;
-            text-decoration: none;
-            font-size: 1.2rem;
-            border: 1px solid rgba(212,175,55,0.3);
-        }
-
-        .facebook-page-btn {
-            background: linear-gradient(135deg, #1877f2, #0e63d9);
-            color: white;
-            padding: 0.7rem 1.2rem;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            width: 100%;
-            margin-top: 0.5rem;
-        }
-
-        .contact-form input, .contact-form textarea {
-            width: 100%;
-            background: rgba(10,10,20,0.6);
-            border: 1px solid rgba(212,175,55,0.3);
-            padding: 0.7rem;
-            border-radius: 14px;
-            color: white;
-            margin-bottom: 0.8rem;
-            font-size: 0.85rem;
-        }
+        /* Contact */
+        .contact-section { background: rgba(20,20,35,0.4); backdrop-filter: blur(12px); border-radius: 24px; padding: 1.2rem; }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        .contact-item { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+        .contact-item i { font-size: 1.2rem; color: #d4af37; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; background: rgba(212,175,55,0.1); border-radius: 50%; }
+        .contact-item h4 { font-size: 0.85rem; }
+        .social-links { display: flex; gap: 0.8rem; justify-content: center; margin: 1rem 0; }
+        .social-link { background: rgba(212,175,55,0.1); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #d4af37; text-decoration: none; font-size: 1.2rem; border: 1px solid rgba(212,175,55,0.3); }
+        .facebook-page-btn { background: linear-gradient(135deg, #1877f2, #0e63d9); color: white; padding: 0.7rem 1.2rem; border-radius: 40px; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; text-decoration: none; font-weight: 600; font-size: 0.8rem; width: 100%; margin-top: 0.5rem; }
+        .contact-form input, .contact-form textarea { width: 100%; background: rgba(10,10,20,0.6); border: 1px solid rgba(212,175,55,0.3); padding: 0.7rem; border-radius: 14px; color: white; margin-bottom: 0.8rem; font-size: 0.85rem; }
 
         /* Admin Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.96);
-            backdrop-filter: blur(8px);
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            max-width: 95%;
-            margin: 0.8rem auto;
-            background: #111118;
-            border-radius: 24px;
-            padding: 1rem;
-            border: 1px solid #d4af37;
-        }
-
-        .admin-tabs {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-
-        .tab-btn {
-            padding: 0.4rem 0.9rem;
-            background: #1e1e2a;
-            border: 1px solid #d4af37;
-            color: #d4af37;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.75rem;
-        }
-
-        .tab-btn.active {
-            background: #d4af37;
-            color: #05050b;
-        }
-
-        .admin-form {
-            background: #0a0a12;
-            padding: 1rem;
-            border-radius: 18px;
-            margin-bottom: 1rem;
-        }
-
-        .admin-form h3 {
-            font-size: 1rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .admin-form input, .admin-form select {
-            width: 100%;
-            padding: 0.6rem;
-            margin-bottom: 0.6rem;
-            background: #1e1e2a;
-            border: 1px solid #3a3a4a;
-            border-radius: 12px;
-            color: white;
-            font-size: 0.8rem;
-        }
-
-        .admin-items-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.6rem;
-        }
-
-        .admin-item-card {
-            background: #0f0f18;
-            padding: 0.7rem;
-            border-radius: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .icon-btn {
-            background: none;
-            border: none;
-            color: #d4af37;
-            font-size: 1rem;
-            padding: 0.3rem 0.5rem;
-            cursor: pointer;
-        }
-
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); backdrop-filter: blur(8px); z-index: 2000; overflow-y: auto; }
+        .modal-content { max-width: 95%; margin: 0.8rem auto; background: #111118; border-radius: 24px; padding: 1rem; border: 1px solid #d4af37; }
+        .admin-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+        .tab-btn { padding: 0.4rem 0.9rem; background: #1e1e2a; border: 1px solid #d4af37; color: #d4af37; border-radius: 30px; cursor: pointer; font-size: 0.75rem; }
+        .tab-btn.active { background: #d4af37; color: #05050b; }
+        .admin-form { background: #0a0a12; padding: 1rem; border-radius: 18px; margin-bottom: 1rem; }
+        .admin-form h3 { font-size: 1rem; margin-bottom: 0.8rem; }
+        .admin-form input, .admin-form select { width: 100%; padding: 0.6rem; margin-bottom: 0.6rem; background: #1e1e2a; border: 1px solid #3a3a4a; border-radius: 12px; color: white; font-size: 0.8rem; }
+        .admin-items-grid { display: grid; grid-template-columns: 1fr; gap: 0.6rem; }
+        .admin-item-card { background: #0f0f18; padding: 0.7rem; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+        .icon-btn { background: none; border: none; color: #d4af37; font-size: 1rem; padding: 0.3rem 0.5rem; cursor: pointer; }
         .icon-btn.delete { color: #dc3545; }
+        .save-status { position: fixed; bottom: 15px; right: 15px; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px); padding: 6px 12px; border-radius: 20px; font-size: 0.65rem; z-index: 1000; border-left: 3px solid #4caf50; display: none; }
 
-        .save-status {
-            position: fixed;
-            bottom: 15px;
-            right: 15px;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.65rem;
-            z-index: 1000;
-            border-left: 3px solid #4caf50;
-            display: none;
-        }
+        .footer { background: #03030a; padding: 1.5rem; text-align: center; border-top: 1px solid rgba(212,175,55,0.2); }
+        .footer-logo-circle { width: 45px; height: 45px; margin: 0 auto 0.5rem; border-radius: 50%; overflow: hidden; }
+        .footer-logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .loading { text-align: center; padding: 1.5rem; color: #d4af37; font-size: 0.85rem; }
 
-        .footer {
-            background: #03030a;
-            padding: 1.5rem;
-            text-align: center;
-            border-top: 1px solid rgba(212,175,55,0.2);
-        }
-
-        .footer-logo-circle {
-            width: 45px;
-            height: 45px;
-            margin: 0 auto 0.5rem;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-
-        .footer-logo-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 1.5rem;
-            color: #d4af37;
-            font-size: 0.85rem;
-        }
-
-        /* Tablet and up */
         @media (min-width: 768px) {
-            .menu-btn {
-                display: none;
-            }
-
-            .nav-links {
-                position: static;
-                width: auto;
-                background: transparent;
-                backdrop-filter: none;
-                flex-direction: row;
-                gap: 1.2rem;
-                padding: 0;
-                border-bottom: none;
-                display: flex;
-            }
-
-            .nav-links li {
-                width: auto;
-            }
-
-            .nav-links a {
-                padding: 0;
-                font-size: 0.85rem;
-            }
-
-            .lang-switch {
-                margin-top: 0;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-logo-circle {
-                width: 140px;
-                height: 140px;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-            }
-
-            .match-item {
-                flex-direction: row;
-                justify-content: space-between;
-                text-align: left;
-            }
-
-            .admin-items-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            }
+            .menu-btn { display: none; }
+            .nav-links { position: static; width: auto; background: transparent; backdrop-filter: none; flex-direction: row; gap: 1.2rem; padding: 0; border-bottom: none; display: flex; }
+            .nav-links li { width: auto; }
+            .nav-links a { padding: 0; font-size: 0.85rem; }
+            .lang-switch { margin-top: 0; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-logo-circle { width: 140px; height: 140px; }
+            .section-title { font-size: 2rem; }
+            .about-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .contact-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+            .match-item { flex-direction: row; justify-content: space-between; text-align: left; }
+            .admin-items-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
         }
-
         @media (min-width: 1024px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .hero-logo-circle {
-                width: 160px;
-                height: 160px;
-            }
+            .hero h1 { font-size: 3rem; }
+            .hero-logo-circle { width: 160px; height: 160px; }
         }
     </style>
 </head>
 <body>
 
-<div id="saveStatus" class="save-status">✅ Saved</div>
+<div id="saveStatus" class="save-status">✅ Saved to cloud</div>
 
 <nav class="navbar">
     <div class="nav-container">
@@ -835,7 +191,7 @@
         </div>
         <div class="hero-badge"><i class="fas fa-gamepad"></i> <span data-key="officialTeam">Official Esports Team</span></div>
         <h1>Welcome to <span>អាណាចក្រអង្គរ</span><br>Anajak Angkor</h1>
-        <p data-key="heroDesc">The Kingdom of Anajak Angkor - Football Esports </p>
+        <p data-key="heroDesc">The Kingdom of Angkor - Cambodia's Premier eFootball Esports Organization.</p>
         <div class="hero-buttons">
             <a href="#players" class="btn btn-primary"><i class="fas fa-users"></i> <span data-key="meetTeam">Meet Our Team</span></a>
             <a href="#matches" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> <span data-key="upcomingMatches">Upcoming Matches</span></a>
@@ -847,15 +203,15 @@
     <h2 class="section-title"><span data-key="aboutUs">អំពីយើង</span></h2>
     <div class="about-grid">
         <div class="about-text">
-            <p data-key="aboutText1"><strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Cambodia's  Football esports </p>
-            <p data-key="aboutText2" style="margin-top:0.8rem;">Founded in 2026</p>
+            <p data-key="aboutText1"><strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Cambodia's leading eFootball esports organization.</p>
+            <p data-key="aboutText2" style="margin-top:0.8rem;">Founded in 2024, our mission is to elevate Cambodian esports to the international stage.</p>
             <div class="stats">
                 <div><div class="stat-number" id="statTournaments">0</div><div class="stat-label" data-key="tournamentsWon">Tournaments Won</div></div>
                 <div><div class="stat-number" id="statPlayers">0</div><div class="stat-label" data-key="players">Players</div></div>
                 <div><div class="stat-number" id="statMatches">0</div><div class="stat-label" data-key="matchesPlayed">Matches Played</div></div>
             </div>
         </div>
-        <div class="about-image"><img src="https://e.top4top.io/p_3731sfged1.jpg" alt="arena"></div>
+        <div class="about-image"><img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600" alt="arena"></div>
     </div>
 </section>
 
@@ -869,8 +225,8 @@
         <div class="contact-grid">
             <div class="contact-info">
                 <div class="contact-item"><i class="fas fa-map-marker-alt"></i><div><h4>📍 ក្រចេះ / Kratie</h4><p>Cambodia</p></div></div>
-                <div class="contact-item"><i class="fas fa-envelope"></i><div><h4>📧 anajak.angkor@gmail.com</h4></div></div>
-                <div class="contact-item"><i class="fas fa-phone-alt"></i><div><h4>📞 +855 66446963</h4></div></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i><div><h4>📧 anajak.angkor@email.com</h4></div></div>
+                <div class="contact-item"><i class="fas fa-phone-alt"></i><div><h4>📞 +855 12 345 678</h4></div></div>
                 <div class="social-links">
                     <a href="https://www.facebook.com/share/1AeADpY6en/?mibextid=wwXIfr" target="_blank" class="social-link"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
@@ -907,9 +263,27 @@
 <div id="adminModal" class="modal"><div class="modal-content"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;"><h2 style="font-size:1.2rem;"><i class="fas fa-crown"></i> Admin Panel</h2><span class="close-modal" style="font-size:1.8rem; cursor:pointer;">&times;</span></div><div id="adminContent"></div></div></div>
 
 <script>
-    // Simple database using localStorage
-    const DB_NAME = 'anajak_angkor_data';
-    
+    // ========== FIREBASE CONFIGURATION ==========
+    // 🔥 REPLACE THIS WITH YOUR ACTUAL FIREBASE CONFIG 🔥
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "your-project.firebaseapp.com",
+        databaseURL: "https://your-project-default-rtdb.firebaseio.com",
+        projectId: "your-project",
+        storageBucket: "your-project.firebasestorage.app",
+        messagingSenderId: "123456789012",
+        appId: "1:123456789012:web:abcdef1234567890"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ========== GLOBAL DATA ==========
+    let isLoggedIn = false;
+    let currentLang = 'km';
+
+    // Default data (used only if Firebase is empty)
     const defaultData = {
         players: [
             { id: 1, name: "SOKHA \"GODZILLA\"", role: "Captain / Striker", stats: "🏅 8 Titles • ⚽ 245 Goals", photo: null, defaultIcon: "fa-user-ninja" },
@@ -931,77 +305,159 @@
         ],
         teamInfo: { tournamentsWon: 15, totalMatches: 45 }
     };
-    
-    let appData = { ...defaultData };
-    let isLoggedIn = false;
-    let currentLang = 'km';
-    
-    const translations = {
-        km: {
-            navHome: "ទំព័រដើម", navAbout: "អំពីយើង", navPlayers: "កីឡាករ", navMatches: "ការប្រកួត",
-            navAchievements: "សមិទ្ធផល", navContact: "ទំនាក់ទំនង", admin: "អ្នកគ្រប់គ្រង",
-            officialTeam: "ក្រុម Esports ផ្លូវការ", meetTeam: "ជួបក្រុម", upcomingMatches: "ការប្រកួតខាងមុខ",
-            aboutUs: "អំពីយើង", tournamentsWon: "ជើងឯក", players: "កីឡាករ", matchesPlayed: "ការប្រកួត",
-            ourPlayers: "កីឡាកររបស់យើង", meetWarriors: "ជួបអ្នកចម្បាំងនៃអាណាចក្រអង្គរ",
-            matchSchedule: "កាលវិភាគប្រកួត", ourAchievements: "សមិទ្ធផល", contactUs: "ទំនាក់ទំនង",
-            sendMessage: "ផ្ញើសារ", copyright: "រក្សាសិទ្ធិគ្រប់យ៉ាង",
-            heroDesc: "អាណាចក្រអង្គរ - Esports Football ",
-            aboutText1: "<strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> គឺជា Team Esports Football ",
-            aboutText2: "បង្កើតឡើងក្នុងឆ្នាំ ២០២៦ "
-        },
-        en: {
-            navHome: "Home", navAbout: "About", navPlayers: "Players", navMatches: "Matches",
-            navAchievements: "Achievements", navContact: "Contact", admin: "Admin",
-            officialTeam: "Official Esports Team", meetTeam: "Meet Our Team", upcomingMatches: "Upcoming Matches",
-            aboutUs: "About Us", tournamentsWon: "Tournaments Won", players: "Players", matchesPlayed: "Matches Played",
-            ourPlayers: "Our Players", meetWarriors: "Meet the warriors of Anajak Angkor",
-            matchSchedule: "Match Schedule", ourAchievements: "Our Achievements", contactUs: "Contact Us",
-            sendMessage: "Send a message", copyright: "All rights reserved",
-            heroDesc: "The Kingdom of Anajak Angkor - Football Esports ",
-            aboutText1: "<strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Cambodia's Football esports ",
-            aboutText2: "Founded in 2026"
-        }
-    };
-    
-    function setLanguage(lang) {
-        currentLang = lang;
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        if(event?.target) event.target.classList.add('active');
-        document.querySelectorAll('[data-key]').forEach(el => {
-            let k = el.getAttribute('data-key');
-            if(translations[lang][k]) {
-                if(k === 'aboutText1' || k === 'aboutText2') el.innerHTML = translations[lang][k];
-                else el.textContent = translations[lang][k];
-            }
-        });
-    }
-    
+
+    // ========== FIREBASE HELPERS ==========
     function showSaveStatus() {
         const status = document.getElementById('saveStatus');
         status.style.display = 'block';
         setTimeout(() => { status.style.display = 'none'; }, 2000);
     }
-    
-    function loadData() {
-        const saved = localStorage.getItem(DB_NAME);
-        if (saved) {
-            try {
-                appData = JSON.parse(saved);
-            } catch(e) {
-                appData = { ...defaultData };
+
+    // Initialize database with default data if empty
+    function initDatabase() {
+        const playersRef = db.ref('players');
+        const matchesRef = db.ref('matches');
+        const achievementsRef = db.ref('achievements');
+        const teamInfoRef = db.ref('teamInfo');
+
+        playersRef.once('value', snapshot => {
+            if (!snapshot.exists()) {
+                defaultData.players.forEach(p => playersRef.child(p.id).set(p));
             }
-        } else {
-            appData = { ...defaultData };
-            saveData();
+        });
+        matchesRef.once('value', snapshot => {
+            if (!snapshot.exists()) {
+                defaultData.matches.forEach(m => matchesRef.child(m.id).set(m));
+            }
+        });
+        achievementsRef.once('value', snapshot => {
+            if (!snapshot.exists()) {
+                defaultData.achievements.forEach(a => achievementsRef.child(a.id).set(a));
+            }
+        });
+        teamInfoRef.once('value', snapshot => {
+            if (!snapshot.exists()) {
+                teamInfoRef.set(defaultData.teamInfo);
+            }
+        });
+    }
+
+    // Real-time listeners
+    function loadData() {
+        // Players
+        db.ref('players').on('value', snapshot => {
+            const data = snapshot.val();
+            if (data) {
+                window.playersData = Object.values(data);
+            } else {
+                window.playersData = [];
+            }
+            updatePlayersDisplay();
+            updateStats();
+            if (isLoggedIn) refreshAdminLists();
+        });
+
+        // Matches
+        db.ref('matches').on('value', snapshot => {
+            const data = snapshot.val();
+            if (data) {
+                window.matchesData = Object.values(data);
+            } else {
+                window.matchesData = [];
+            }
+            updateMatchesDisplay();
+            updateStats();
+            if (isLoggedIn) refreshAdminLists();
+        });
+
+        // Achievements
+        db.ref('achievements').on('value', snapshot => {
+            const data = snapshot.val();
+            if (data) {
+                window.achievementsData = Object.values(data);
+            } else {
+                window.achievementsData = [];
+            }
+            updateAchievementsDisplay();
+            updateStats();
+            if (isLoggedIn) refreshAdminLists();
+        });
+
+        // Team Info
+        db.ref('teamInfo').on('value', snapshot => {
+            const data = snapshot.val();
+            if (data) {
+                window.teamInfo = data;
+            } else {
+                window.teamInfo = { tournamentsWon: 0, totalMatches: 0 };
+            }
+            updateStats();
+        });
+    }
+
+    function updatePlayersDisplay() {
+        const container = document.getElementById('playersContainer');
+        if (!container) return;
+        if (!window.playersData || window.playersData.length === 0) {
+            container.innerHTML = '<div class="loading">No players yet</div>';
+            return;
         }
-        updatePublicDisplay();
+        container.innerHTML = window.playersData.map(player => `
+            <div class="player-card">
+                <div class="player-image">
+                    ${player.photo ? `<img src="${player.photo}" alt="${player.name}">` : `<div class="no-photo"><i class="fas ${player.defaultIcon || 'fa-user'}"></i></div>`}
+                </div>
+                <div class="player-info">
+                    <h3 class="player-name">${escapeHtml(player.name)}</h3>
+                    <div class="player-role">${escapeHtml(player.role)}</div>
+                    <div class="player-stats">${escapeHtml(player.stats)}</div>
+                </div>
+            </div>
+        `).join('');
     }
-    
-    function saveData() {
-        localStorage.setItem(DB_NAME, JSON.stringify(appData));
-        showSaveStatus();
+
+    function updateMatchesDisplay() {
+        const container = document.getElementById('matchesContainer');
+        if (!container) return;
+        if (!window.matchesData || window.matchesData.length === 0) {
+            container.innerHTML = '<div class="loading">No matches yet</div>';
+            return;
+        }
+        container.innerHTML = window.matchesData.map(match => `
+            <div class="match-item">
+                <div class="match-date"><i class="far fa-calendar"></i> ${escapeHtml(match.date)}</div>
+                <div class="match-teams">
+                    <div class="team"><i class="fas fa-crown" style="color:#d4af37;"></i> Anajak Angkor</div>
+                    <div class="vs">VS</div>
+                    <div class="team">${escapeHtml(match.opponent)}</div>
+                </div>
+                <div class="match-result ${match.status === 'win' ? 'win' : ''}">${escapeHtml(match.result)}</div>
+            </div>
+        `).join('');
     }
-    
+
+    function updateAchievementsDisplay() {
+        const container = document.getElementById('achievementsContainer');
+        if (!container) return;
+        if (!window.achievementsData || window.achievementsData.length === 0) {
+            container.innerHTML = '<div class="loading">No achievements yet</div>';
+            return;
+        }
+        container.innerHTML = window.achievementsData.map(ach => `
+            <div class="achievement-card">
+                <i class="fas ${ach.icon}"></i>
+                <h3>${escapeHtml(ach.title)}</h3>
+                <p>${escapeHtml(ach.year)}</p>
+            </div>
+        `).join('');
+    }
+
+    function updateStats() {
+        document.getElementById('statTournaments').textContent = window.teamInfo?.tournamentsWon || 0;
+        document.getElementById('statPlayers').textContent = window.playersData?.length || 0;
+        document.getElementById('statMatches').textContent = window.teamInfo?.totalMatches || 0;
+    }
+
     function escapeHtml(str) {
         if (!str) return '';
         return String(str).replace(/[&<>]/g, function(m) {
@@ -1011,144 +467,101 @@
             return m;
         });
     }
-    
-    function updatePublicDisplay() {
-        const playersContainer = document.getElementById('playersContainer');
-        if (playersContainer) {
-            playersContainer.innerHTML = appData.players.map(player => `
-                <div class="player-card">
-                    <div class="player-image">
-                        ${player.photo ? `<img src="${player.photo}" alt="${player.name}">` : `<div class="no-photo"><i class="fas ${player.defaultIcon || 'fa-user'}"></i></div>`}
-                    </div>
-                    <div class="player-info">
-                        <h3 class="player-name">${escapeHtml(player.name)}</h3>
-                        <div class="player-role">${escapeHtml(player.role)}</div>
-                        <div class="player-stats">${escapeHtml(player.stats)}</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-        
-        const matchesContainer = document.getElementById('matchesContainer');
-        if (matchesContainer) {
-            matchesContainer.innerHTML = appData.matches.map(match => `
-                <div class="match-item">
-                    <div class="match-date"><i class="far fa-calendar"></i> ${escapeHtml(match.date)}</div>
-                    <div class="match-teams">
-                        <div class="team"><i class="fas fa-crown" style="color:#d4af37;"></i> Anajak Angkor</div>
-                        <div class="vs">VS</div>
-                        <div class="team">${escapeHtml(match.opponent)}</div>
-                    </div>
-                    <div class="match-result ${match.status === 'win' ? 'win' : ''}">${escapeHtml(match.result)}</div>
-                </div>
-            `).join('');
-        }
-        
-        const achievementsContainer = document.getElementById('achievementsContainer');
-        if (achievementsContainer) {
-            achievementsContainer.innerHTML = appData.achievements.map(ach => `
-                <div class="achievement-card">
-                    <i class="fas ${ach.icon}"></i>
-                    <h3>${escapeHtml(ach.title)}</h3>
-                    <p>${escapeHtml(ach.year)}</p>
-                </div>
-            `).join('');
-        }
-        
-        document.getElementById('statTournaments').textContent = appData.teamInfo.tournamentsWon;
-        document.getElementById('statPlayers').textContent = appData.players.length;
-        document.getElementById('statMatches').textContent = appData.teamInfo.totalMatches;
-    }
-    
-    // Admin Functions
-    function addPlayer(player) {
+
+    // ========== ADMIN OPERATIONS (Write to Firebase) ==========
+    async function addPlayer(player) {
         const newId = Date.now();
-        appData.players.push({ ...player, id: newId });
-        saveData();
-        refreshAdminLists();
+        await db.ref(`players/${newId}`).set({ ...player, id: newId });
+        showSaveStatus();
     }
-    
-    function deletePlayer(id) {
+
+    async function deletePlayer(id) {
         if (confirm(currentLang === 'km' ? 'លុបកីឡាករនេះ?' : 'Delete this player?')) {
-            appData.players = appData.players.filter(p => p.id !== id);
-            saveData();
-            refreshAdminLists();
+            await db.ref(`players/${id}`).remove();
+            showSaveStatus();
         }
     }
-    
-    function addMatch(match) {
+
+    async function addMatch(match) {
         const newId = Date.now();
-        appData.matches.push({ ...match, id: newId });
-        const completedMatches = appData.matches.filter(m => m.status === 'win' || m.status === 'loss').length;
-        appData.teamInfo.totalMatches = completedMatches;
-        saveData();
-        refreshAdminLists();
+        await db.ref(`matches/${newId}`).set({ ...match, id: newId });
+        // Recalculate total matches count
+        const snapshot = await db.ref('matches').once('value');
+        const matches = snapshot.val();
+        const completed = matches ? Object.values(matches).filter(m => m.status === 'win' || m.status === 'loss').length : 0;
+        await db.ref('teamInfo/totalMatches').set(completed);
+        showSaveStatus();
     }
-    
-    function deleteMatch(id) {
+
+    async function deleteMatch(id) {
         if (confirm(currentLang === 'km' ? 'លុបការប្រកួតនេះ?' : 'Delete this match?')) {
-            appData.matches = appData.matches.filter(m => m.id !== id);
-            const completedMatches = appData.matches.filter(m => m.status === 'win' || m.status === 'loss').length;
-            appData.teamInfo.totalMatches = completedMatches;
-            saveData();
-            refreshAdminLists();
+            await db.ref(`matches/${id}`).remove();
+            const snapshot = await db.ref('matches').once('value');
+            const matches = snapshot.val();
+            const completed = matches ? Object.values(matches).filter(m => m.status === 'win' || m.status === 'loss').length : 0;
+            await db.ref('teamInfo/totalMatches').set(completed);
+            showSaveStatus();
         }
     }
-    
-    function addAchievement(achievement) {
+
+    async function addAchievement(achievement) {
         const newId = Date.now();
-        appData.achievements.push({ ...achievement, id: newId });
-        appData.teamInfo.tournamentsWon = appData.achievements.length;
-        saveData();
-        refreshAdminLists();
+        await db.ref(`achievements/${newId}`).set({ ...achievement, id: newId });
+        const snapshot = await db.ref('achievements').once('value');
+        const achievements = snapshot.val();
+        const count = achievements ? Object.keys(achievements).length : 0;
+        await db.ref('teamInfo/tournamentsWon').set(count);
+        showSaveStatus();
     }
-    
-    function deleteAchievement(id) {
+
+    async function deleteAchievement(id) {
         if (confirm(currentLang === 'km' ? 'លុបសមិទ្ធផលនេះ?' : 'Delete this achievement?')) {
-            appData.achievements = appData.achievements.filter(a => a.id !== id);
-            appData.teamInfo.tournamentsWon = appData.achievements.length;
-            saveData();
-            refreshAdminLists();
+            await db.ref(`achievements/${id}`).remove();
+            const snapshot = await db.ref('achievements').once('value');
+            const achievements = snapshot.val();
+            const count = achievements ? Object.keys(achievements).length : 0;
+            await db.ref('teamInfo/tournamentsWon').set(count);
+            showSaveStatus();
         }
     }
-    
-    function deleteAll(type) {
+
+    async function deleteAll(type) {
         const confirmMsg = currentLang === 'km' ? 'លុបទាំងអស់?' : 'Delete all?';
         if (confirm(confirmMsg)) {
-            if (type === 'players') appData.players = [];
-            else if (type === 'matches') { appData.matches = []; appData.teamInfo.totalMatches = 0; }
-            else if (type === 'achievements') { appData.achievements = []; appData.teamInfo.tournamentsWon = 0; }
-            saveData();
-            refreshAdminLists();
+            if (type === 'players') {
+                await db.ref('players').remove();
+            } else if (type === 'matches') {
+                await db.ref('matches').remove();
+                await db.ref('teamInfo/totalMatches').set(0);
+            } else if (type === 'achievements') {
+                await db.ref('achievements').remove();
+                await db.ref('teamInfo/tournamentsWon').set(0);
+            }
+            showSaveStatus();
         }
     }
-    
-    function updateTeamInfo(tournamentsWon, totalMatches) {
-        appData.teamInfo.tournamentsWon = tournamentsWon;
-        appData.teamInfo.totalMatches = totalMatches;
-        saveData();
-        refreshAdminLists();
+
+    async function updateTeamInfo(tournamentsWon, totalMatches) {
+        await db.ref('teamInfo').update({ tournamentsWon, totalMatches });
+        showSaveStatus();
     }
-    
-    function uploadPhoto(playerId, photoBase64) {
-        const player = appData.players.find(p => p.id === playerId);
-        if (player) {
-            player.photo = photoBase64;
-            saveData();
-            refreshAdminLists();
-        }
+
+    async function uploadPhoto(playerId, photoBase64) {
+        await db.ref(`players/${playerId}/photo`).set(photoBase64);
+        showSaveStatus();
     }
-    
+
+    // ========== ADMIN UI ==========
     window.deletePlayerHandler = (id) => deletePlayer(id);
     window.deleteMatchHandler = (id) => deleteMatch(id);
     window.deleteAchievementHandler = (id) => deleteAchievement(id);
     window.deleteAllHandler = (type) => deleteAll(type);
-    
+
     window.uploadPhotoForPlayer = (id) => {
         const input = document.createElement('input');
         input.type = 'file';
         input.accept = 'image/*';
-        input.onchange = (e) => {
+        input.onchange = async (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
@@ -1158,11 +571,11 @@
         };
         input.click();
     };
-    
+
     function refreshAdminLists() {
         const playersList = document.getElementById('playersList');
-        if (playersList) {
-            playersList.innerHTML = appData.players.map(p => `
+        if (playersList && window.playersData) {
+            playersList.innerHTML = window.playersData.map(p => `
                 <div class="admin-item-card">
                     <div><h4 style="font-size:0.85rem;">${escapeHtml(p.name)}</h4><p style="font-size:0.7rem;">${escapeHtml(p.role)}</p></div>
                     <div>
@@ -1172,20 +585,20 @@
                 </div>
             `).join('');
         }
-        
+
         const matchesList = document.getElementById('matchesList');
-        if (matchesList) {
-            matchesList.innerHTML = appData.matches.map(m => `
+        if (matchesList && window.matchesData) {
+            matchesList.innerHTML = window.matchesData.map(m => `
                 <div class="admin-item-card">
                     <div><h4 style="font-size:0.85rem;">${escapeHtml(m.opponent)}</h4><p style="font-size:0.7rem;">${escapeHtml(m.date)} - ${escapeHtml(m.result)}</p></div>
                     <div><button class="icon-btn delete" onclick="deleteMatchHandler(${m.id})"><i class="fas fa-trash"></i></button></div>
                 </div>
             `).join('');
         }
-        
+
         const achievementsList = document.getElementById('achievementsList');
-        if (achievementsList) {
-            achievementsList.innerHTML = appData.achievements.map(a => `
+        if (achievementsList && window.achievementsData) {
+            achievementsList.innerHTML = window.achievementsData.map(a => `
                 <div class="admin-item-card">
                     <div><h4 style="font-size:0.85rem;">${escapeHtml(a.title)}</h4><p style="font-size:0.7rem;">${escapeHtml(a.year)}</p></div>
                     <div><button class="icon-btn delete" onclick="deleteAchievementHandler(${a.id})"><i class="fas fa-trash"></i></button></div>
@@ -1193,45 +606,38 @@
             `).join('');
         }
     }
-    
+
     function setupAdminForms() {
         const addPlayerForm = document.getElementById('addPlayerForm');
         if (addPlayerForm) {
-            addPlayerForm.onsubmit = (e) => {
+            addPlayerForm.onsubmit = async (e) => {
                 e.preventDefault();
                 const photoFile = document.getElementById('playerPhoto').files[0];
+                let photoBase64 = null;
                 if (photoFile) {
                     const reader = new FileReader();
-                    reader.readAsDataURL(photoFile);
-                    reader.onload = () => {
-                        addPlayer({
-                            name: document.getElementById('playerName').value,
-                            role: document.getElementById('playerRole').value,
-                            stats: document.getElementById('playerStats').value,
-                            photo: reader.result,
-                            defaultIcon: "fa-user-ninja"
-                        });
-                        addPlayerForm.reset();
-                    };
-                } else {
-                    addPlayer({
-                        name: document.getElementById('playerName').value,
-                        role: document.getElementById('playerRole').value,
-                        stats: document.getElementById('playerStats').value,
-                        photo: null,
-                        defaultIcon: "fa-user-ninja"
+                    photoBase64 = await new Promise(resolve => {
+                        reader.onload = () => resolve(reader.result);
+                        reader.readAsDataURL(photoFile);
                     });
-                    addPlayerForm.reset();
                 }
+                await addPlayer({
+                    name: document.getElementById('playerName').value,
+                    role: document.getElementById('playerRole').value,
+                    stats: document.getElementById('playerStats').value,
+                    photo: photoBase64,
+                    defaultIcon: "fa-user-ninja"
+                });
+                addPlayerForm.reset();
             };
         }
-        
+
         const addMatchForm = document.getElementById('addMatchForm');
         if (addMatchForm) {
-            addMatchForm.onsubmit = (e) => {
+            addMatchForm.onsubmit = async (e) => {
                 e.preventDefault();
                 const result = document.getElementById('matchResult').value;
-                addMatch({
+                await addMatch({
                     date: document.getElementById('matchDate').value,
                     opponent: document.getElementById('matchOpponent').value,
                     result: result === 'WIN' ? 'WIN' : result === 'LOSS' ? 'LOSS' : 'Upcoming',
@@ -1240,12 +646,12 @@
                 addMatchForm.reset();
             };
         }
-        
+
         const addAchievementForm = document.getElementById('addAchievementForm');
         if (addAchievementForm) {
-            addAchievementForm.onsubmit = (e) => {
+            addAchievementForm.onsubmit = async (e) => {
                 e.preventDefault();
-                addAchievement({
+                await addAchievement({
                     title: document.getElementById('achievementTitle').value,
                     year: document.getElementById('achievementYear').value,
                     icon: document.getElementById('achievementIcon').value
@@ -1253,19 +659,19 @@
                 addAchievementForm.reset();
             };
         }
-        
+
         const settingsForm = document.getElementById('settingsForm');
         if (settingsForm) {
-            settingsForm.onsubmit = (e) => {
+            settingsForm.onsubmit = async (e) => {
                 e.preventDefault();
-                updateTeamInfo(
+                await updateTeamInfo(
                     parseInt(document.getElementById('settingsTournaments').value),
                     parseInt(document.getElementById('settingsMatches').value)
                 );
             };
         }
     }
-    
+
     function showAdminPanel() {
         document.getElementById('adminContent').innerHTML = `
             <div class="admin-tabs">
@@ -1287,79 +693,121 @@
                 <h3 style="font-size:1rem; margin:1rem 0 0.5rem;">Current Achievements</h3><div id="achievementsList"></div>
             </div>
             <div id="settingsTab" class="tab-pane">
-                <div class="admin-form"><h3>Team Statistics</h3><form id="settingsForm"><input type="number" id="settingsTournaments" placeholder="Tournaments Won" value="${appData.teamInfo.tournamentsWon}"><input type="number" id="settingsMatches" placeholder="Total Matches" value="${appData.teamInfo.totalMatches}"><button class="btn btn-primary" style="width:100%;">Update Stats</button></form><button onclick="logout()" class="btn btn-danger" style="width:100%; margin-top:0.8rem;">Logout</button></div>
+                <div class="admin-form"><h3>Team Statistics</h3><form id="settingsForm"><input type="number" id="settingsTournaments" placeholder="Tournaments Won" value="${window.teamInfo?.tournamentsWon || 0}"><input type="number" id="settingsMatches" placeholder="Total Matches" value="${window.teamInfo?.totalMatches || 0}"><button class="btn btn-primary" style="width:100%;">Update Stats</button></form><button onclick="logout()" class="btn btn-danger" style="width:100%; margin-top:0.8rem;">Logout</button></div>
             </div>
         `;
         refreshAdminLists();
         setupAdminForms();
     }
-    
+
     window.switchTab = function(tab) {
         document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(`${tab}Tab`).classList.add('active');
         if(event?.target) event.target.classList.add('active');
     };
-    
+
     function logout() {
         isLoggedIn = false;
         document.getElementById('adminModal').style.display = 'none';
     }
-    
+
     function showLoginModal() {
         document.getElementById('adminContent').innerHTML = `
             <div style="max-width:300px; margin:0 auto;"><h3 style="text-align:center; margin-bottom:1rem;">Admin Login</h3><form id="loginForm"><input type="text" id="loginUsername" placeholder="Username" style="width:100%; padding:0.7rem; margin-bottom:0.8rem; background:#1e1e2a; border:1px solid #d4af37; border-radius:12px; color:white;"><input type="password" id="loginPassword" placeholder="Password" style="width:100%; padding:0.7rem; margin-bottom:1rem; background:#1e1e2a; border:1px solid #d4af37; border-radius:12px; color:white;"><button class="btn btn-primary" style="width:100%;">Login</button></form><p style="text-align:center; margin-top:1rem; color:#888;">Demo: admin / admin123</p></div>`;
         document.getElementById('loginForm').onsubmit = (e) => {
             e.preventDefault();
-            if(document.getElementById('loginUsername').value === 'admin' && document.getElementById('loginPassword').value === 'admin168') {
+            if(document.getElementById('loginUsername').value === 'admin' && document.getElementById('loginPassword').value === 'admin123') {
                 isLoggedIn = true;
                 showAdminPanel();
             } else alert('Invalid credentials');
         };
     }
-    
-    // Initialize
-    loadData();
-    
-    // Modal handling
-    const modal = document.getElementById('adminModal');
-    document.getElementById('adminLoginBtn').onclick = (e) => {
-        e.preventDefault();
-        modal.style.display = 'block';
-        if(!isLoggedIn) showLoginModal();
-        else showAdminPanel();
-    };
-    document.querySelector('.close-modal').onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
-    
-    // Mobile menu
-    const menuBtn = document.querySelector('.menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
-    
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => navLinks.classList.remove('active'));
-    });
-    
-    // Smooth scroll
-    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
-        if(this.getAttribute('href') !== '#') {
+
+    // ========== INITIALIZATION ==========
+    function init() {
+        initDatabase();
+        loadData();
+
+        // Language translations
+        const translations = {
+            km: {
+                navHome: "ទំព័រដើម", navAbout: "អំពីយើង", navPlayers: "កីឡាករ", navMatches: "ការប្រកួត",
+                navAchievements: "សមិទ្ធផល", navContact: "ទំនាក់ទំនង", admin: "អ្នកគ្រប់គ្រង",
+                officialTeam: "ក្រុម Esports ផ្លូវការ", meetTeam: "ជួបក្រុម", upcomingMatches: "ការប្រកួតខាងមុខ",
+                aboutUs: "អំពីយើង", tournamentsWon: "ជើងឯក", players: "កីឡាករ", matchesPlayed: "ការប្រកួត",
+                ourPlayers: "កីឡាកររបស់យើង", meetWarriors: "ជួបអ្នកចម្បាំងនៃអាណាចក្រអង្គរ",
+                matchSchedule: "កាលវិភាគប្រកួត", ourAchievements: "សមិទ្ធផល", contactUs: "ទំនាក់ទំនង",
+                sendMessage: "ផ្ញើសារ", copyright: "រក្សាសិទ្ធិគ្រប់យ៉ាង",
+                heroDesc: "អាណាចក្រអង្គរ - អង្គការ Esports eFootball ឈានមុខគេនៅកម្ពុជា",
+                aboutText1: "<strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> គឺជាអង្គការ Esports eFootball ឈានមុខគេនៅកម្ពុជា។",
+                aboutText2: "បង្កើតឡើងក្នុងឆ្នាំ ២០២៤ បេសកកម្មរបស់យើងគឺលើកកម្ពស់វិស័យ Esports កម្ពុជាឱ្យឈានដល់ឆាកអន្តរជាតិ។"
+            },
+            en: {
+                navHome: "Home", navAbout: "About", navPlayers: "Players", navMatches: "Matches",
+                navAchievements: "Achievements", navContact: "Contact", admin: "Admin",
+                officialTeam: "Official Esports Team", meetTeam: "Meet Our Team", upcomingMatches: "Upcoming Matches",
+                aboutUs: "About Us", tournamentsWon: "Tournaments Won", players: "Players", matchesPlayed: "Matches Played",
+                ourPlayers: "Our Players", meetWarriors: "Meet the warriors of Anajak Angkor",
+                matchSchedule: "Match Schedule", ourAchievements: "Our Achievements", contactUs: "Contact Us",
+                sendMessage: "Send a message", copyright: "All rights reserved",
+                heroDesc: "The Kingdom of Angkor - Cambodia's Premier eFootball Esports Organization.",
+                aboutText1: "<strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Cambodia's leading eFootball esports organization.",
+                aboutText2: "Founded in 2024, our mission is to elevate Cambodian esports to the international stage."
+            }
+        };
+
+        window.setLanguage = function(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            if(event?.target) event.target.classList.add('active');
+            document.querySelectorAll('[data-key]').forEach(el => {
+                let k = el.getAttribute('data-key');
+                if(translations[lang][k]) {
+                    if(k === 'aboutText1' || k === 'aboutText2') el.innerHTML = translations[lang][k];
+                    else el.textContent = translations[lang][k];
+                }
+            });
+        };
+
+        // Modal handlers
+        const modal = document.getElementById('adminModal');
+        document.getElementById('adminLoginBtn').onclick = (e) => {
             e.preventDefault();
-            navLinks.classList.remove('active');
-            const target = document.querySelector(this.getAttribute('href'));
-            if(target) target.scrollIntoView({ behavior: 'smooth' });
-        }
-    }));
-    
-    // Contact form
-    document.getElementById('contactForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert(currentLang === 'km' ? 'សាររបស់អ្នកបានផ្ញើដោយជោគជ័យ!' : 'Message sent successfully!');
-        e.target.reset();
-    });
-    
-    setLanguage('km');
+            modal.style.display = 'block';
+            if(!isLoggedIn) showLoginModal();
+            else showAdminPanel();
+        };
+        document.querySelector('.close-modal').onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if(e.target === modal) modal.style.display = 'none'; };
+
+        // Mobile menu
+        document.querySelector('.menu-btn').addEventListener('click', () => document.querySelector('.nav-links').classList.toggle('active'));
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => document.querySelector('.nav-links').classList.remove('active'));
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', function(e) {
+            if(this.getAttribute('href') !== '#') {
+                e.preventDefault();
+                document.querySelector('.nav-links').classList.remove('active');
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }));
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert(currentLang === 'km' ? 'សាររបស់អ្នកបានផ្ញើដោយជោគជ័យ!' : 'Message sent successfully!');
+            e.target.reset();
+        });
+
+        setLanguage('km');
+    }
+
+    init();
 </script>
 </body>
 </html>
