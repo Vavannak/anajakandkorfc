@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Khmer&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* (All CSS styles from previous version – same as before) */
+        /* (Copy the full CSS from previous public.html – all styles exactly as before) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', 'Khmer', sans-serif; background: #03030a; color: #fff; line-height: 1.5; overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
         ::-webkit-scrollbar { width: 4px; }
@@ -199,54 +199,24 @@
 </footer>
 
 <script>
-    // --- localStorage database ---
-    const STORAGE_KEY = 'anajak_angkor_data';
+    const API_URL = 'api.php';
 
-    const defaultData = {
-        players: [
-            { id: 1, name: "SOKHA \"GODZILLA\"", role: "Captain / Striker", stats: "🏅 8 Titles • ⚽ 245 Goals", photo: null, defaultIcon: "fa-user-ninja" },
-            { id: 2, name: "RITHY \"PHANTOM\"", role: "Midfielder", stats: "🏅 6 Titles • 🎯 112 Assists", photo: null, defaultIcon: "fa-user-astronaut" },
-            { id: 3, name: "VICHEKA \"SHADOW\"", role: "Defender", stats: "🏅 5 Titles • 🛡️ 89 Clean Sheets", photo: null, defaultIcon: "fa-user-secret" },
-            { id: 4, name: "DARA \"WIZARD\"", role: "Goalkeeper", stats: "🏅 7 Titles • 🧤 156 Saves", photo: null, defaultIcon: "fa-user-graduate" }
-        ],
-        matches: [
-            { id: 1, date: "Mar 25, 2026", opponent: "Phoenix Esports", result: "3 - 1 WIN", status: "win" },
-            { id: 2, date: "Mar 28, 2026", opponent: "Dragon FC", result: "2 - 0 WIN", status: "win" },
-            { id: 3, date: "Apr 2, 2026", opponent: "Tiger Gaming", result: "Upcoming", status: "upcoming" },
-            { id: 4, date: "Apr 5, 2026", opponent: "Khmer Warriors", result: "Upcoming", status: "upcoming" }
-        ],
-        achievements: [
-            { id: 1, title: "eFootball Cambodia Champions", year: "2025", icon: "fa-trophy" },
-            { id: 2, title: "SEA Invitational Runner-up", year: "2025", icon: "fa-medal" },
-            { id: 3, title: "Kingdom League Winners", year: "2024, 2025", icon: "fa-crown" },
-            { id: 4, title: "Undefeated Streak Record", year: "21 Matches (2025)", icon: "fa-chart-line" }
-        ],
-        teamInfo: { tournamentsWon: 15, totalMatches: 45 }
-    };
-
-    let appData = { ...defaultData };
-
-    function loadData() {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) {
-            try {
-                appData = JSON.parse(saved);
-            } catch(e) { console.warn(e); }
-        } else {
-            saveData(); // save defaults
+    async function loadData() {
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            updateUI(data);
+        } catch (err) {
+            console.error('Error loading data:', err);
+            document.querySelectorAll('.loading').forEach(el => el.innerHTML = 'Error loading data. Please refresh.');
         }
-        updateUI();
     }
 
-    function saveData() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-    }
-
-    function updateUI() {
+    function updateUI(data) {
         // Players
         const playersContainer = document.getElementById('playersContainer');
-        if (playersContainer) {
-            playersContainer.innerHTML = appData.players.map(player => `
+        if (playersContainer && data.players) {
+            playersContainer.innerHTML = data.players.map(player => `
                 <div class="player-card">
                     <div class="player-image">
                         ${player.photo ? `<img src="${player.photo}" alt="${player.name}">` : `<div class="no-photo"><i class="fas ${player.defaultIcon || 'fa-user'}"></i></div>`}
@@ -262,8 +232,8 @@
 
         // Matches
         const matchesContainer = document.getElementById('matchesContainer');
-        if (matchesContainer) {
-            matchesContainer.innerHTML = appData.matches.map(match => `
+        if (matchesContainer && data.matches) {
+            matchesContainer.innerHTML = data.matches.map(match => `
                 <div class="match-item">
                     <div class="match-date"><i class="far fa-calendar"></i> ${escapeHtml(match.date)}</div>
                     <div class="match-teams">
@@ -278,8 +248,8 @@
 
         // Achievements
         const achievementsContainer = document.getElementById('achievementsContainer');
-        if (achievementsContainer) {
-            achievementsContainer.innerHTML = appData.achievements.map(ach => `
+        if (achievementsContainer && data.achievements) {
+            achievementsContainer.innerHTML = data.achievements.map(ach => `
                 <div class="achievement-card">
                     <i class="fas ${ach.icon}"></i>
                     <h3>${escapeHtml(ach.title)}</h3>
@@ -289,9 +259,9 @@
         }
 
         // Stats
-        document.getElementById('statTournaments').innerText = appData.teamInfo.tournamentsWon;
-        document.getElementById('statPlayers').innerText = appData.players.length;
-        document.getElementById('statMatches').innerText = appData.teamInfo.totalMatches;
+        document.getElementById('statTournaments').innerText = data.teamInfo.tournamentsWon;
+        document.getElementById('statPlayers').innerText = data.players.length;
+        document.getElementById('statMatches').innerText = data.teamInfo.totalMatches;
     }
 
     function escapeHtml(str) {
@@ -304,7 +274,7 @@
         });
     }
 
-    // Language switcher (same as before)
+    // Language switcher (same as before – keep for completeness)
     const translations = {
         km: {
             navHome: "ទំព័រដើម", navAbout: "អំពីយើង", navPlayers: "កីឡាករ", navMatches: "ការប្រកួត",
@@ -362,14 +332,13 @@
         }
     }));
 
-    // Contact form (just an alert – no storage needed)
+    // Contact form (just alert – no storage)
     document.getElementById('contactForm').addEventListener('submit', (e) => {
         e.preventDefault();
         alert(currentLang === 'km' ? 'សាររបស់អ្នកបានផ្ញើដោយជោគជ័យ!' : 'Message sent successfully!');
         e.target.reset();
     });
 
-    // Initialise
     loadData();
     setLanguage('km');
 </script>
