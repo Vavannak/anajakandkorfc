@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="km">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>អាណាចក្រអង្គរ - Anajak Angkor | Esports Football Team</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Khmer&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Khmer', sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 5px;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 0.8rem 5%;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            font-size: 1.5rem;
+            color: #d4af37;
+        }
+
+        .logo-text h1 {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .logo-text p {
+            font-size: 0.6rem;
+            color: #d4af37;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        .admin-btn {
+            background: #d4af37;
+            color: #0a0a0a !important;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            font-weight: 600 !important;
+            font-size: 0.85rem !important;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Language Switcher */
+        .lang-switch {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            padding: 0.2rem 0.6rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: #d4af37;
+            color: #0a0a0a;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%), url('https://e.top4top.io/p_3731sfged1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid #d4af37;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #d4af37;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: #d4af37;
+            color: #0a0a0a;
+        }
+
+        .btn-primary:hover {
+            background: #ffd700;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            background: transparent;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: #0a0a0a;
+        }
+
+        /* Sections */
+        .section {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .section-title span {
+            color: #d4af37;
+        }
+
+        /* Admin Panel Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            max-width: 95%;
+            margin: 1rem auto;
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #d4af37;
+            flex-wrap: wrap;
+        }
+
+        .modal-header h2 {
+            font-size: 1.2rem;
+        }
+
+        .close-modal {
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #d4af37;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 0.5rem 1rem;
+            background: #0a0a0a;
+            border: 1px solid #d4af37;
+            color: #d4af37;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: #d4af37;
+            color: #0a0a0a;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Forms */
+        .admin-form {
+            background: #0a0a0a;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 0.8rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #d4af37;
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.6rem;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+
+        /* Admin Cards */
+        .admin-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .admin-item-card {
+            background: #0a0a0a;
+            padding: 0.8rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .admin-item-info h4 {
+            margin-bottom: 0.2rem;
+            font-size: 0.95rem;
+        }
+
+        .admin-item-info p {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        .admin-item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #d4af37;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 0.3rem 0.5rem;
+            transition: all 0.3s;
+            border-radius: 5px;
+        }
+
+        .icon-btn:hover {
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        .icon-btn.delete {
+            color: #dc3545;
+        }
+
+        .icon-btn.delete:hover {
+            background: rgba(220, 53, 69, 0.2);
+        }
+
+        /* Players Grid */
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .player-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .player-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .player-image {
+            height: 280px;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .player-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .player-image .no-photo {
+            text-align: center;
+        }
+
+        .player-image .no-photo i {
+            font-size: 4rem;
+            color: #d4af37;
+        }
+
+        .player-info {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .player-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+
+        .player-role {
+            color: #d4af37;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .player-stats {
+            margin-top: 0.5rem;
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        /* Matches */
+        .matches-container {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            border-radius: 15px;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .match-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .match-date {
+            min-width: 90px;
+            color: #d4af37;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .match-teams {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .team {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+        }
+
+        .vs {
+            color: #d4af37;
+            font-weight: 800;
+            font-size: 0.8rem;
+        }
+
+        .match-result {
+            min-width: 70px;
+            text-align: right;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .win {
+            color: #4caf50;
+        }
+
+        /* Achievements */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .achievement-card {
+            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
+            padding: 1.2rem;
+            text-align: center;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s;
+        }
+
+        .achievement-card i {
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-card h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .achievement-card p {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        /* Footer */
+        .footer {
+            background: #050505;
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* About Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .modal-content {
+                max-width: 90%;
+                padding: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .modal-content {
+                max-width: 1000px;
+            }
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 65px;
+                left: -100%;
+                width: 100%;
+                background: #0a0a0a;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem;
+                transition: left 0.3s;
+                gap: 0.8rem;
+                z-index: 999;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .match-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .match-teams {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .match-result {
+                text-align: center;
+            }
+
+            .admin-item-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .admin-item-actions {
+                justify-content: center;
+            }
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #d4af37;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-crown logo-icon"></i>
+                <div class="logo-text">
+                    <h1>អាណាចក្រអង្គរ</h1>
+                    <p>ANAJAK ANGKOR</p>
+                </div>
+            </div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-key="navHome">ទំព័រដើម</a></li>
+                <li><a href="#about" data-key="navAbout">អំពីយើង</a></li>
+                <li><a href="#players" data-key="navPlayers">កីឡាករ</a></li>
+                <li><a href="#matches" data-key="navMatches">ការប្រកួត</a></li>
+                <li><a href="#achievements" data-key="navAchievements">សមិទ្ធផល</a></li>
+                <li><a href="#" id="adminLoginBtn" class="admin-btn"><i class="fas fa-lock"></i> <span
+                            data-key="admin">Admin</span></a></li>
+                <li>
+                    <div class="lang-switch">
+                        <button class="lang-btn active" onclick="setLanguage('km')">ភាសាខ្មែរ</button>
+                        <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-gamepad"></i> <span data-key="officialTeam">Official Esports Team</span>
+            </div>
+            <h1>Welcome to <span>អាណាចក្រអង្គរ</span><br>Anajak Angkor</h1>
+            <p data-key="heroDesc">The Kingdom of Anajak Angkor - Football Esports .</p>
+            <div class="hero-buttons">
+                <a href="#players" class="btn btn-primary"><i class="fas fa-users"></i> <span data-key="meetTeam">Meet
+                        Our Team</span></a>
+                <a href="#matches" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> <span
+                        data-key="upcomingMatches">Upcoming Matches</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title"><span data-key="aboutUs">អំពីយើង</span></h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p data-key="aboutText1"><strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Team EsportsFootball.</p>
+                <p data-key="aboutText2" style="margin-top: 1rem;">Founded in 2026</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="statTournaments">0</div>
+                        <div class="stat-label" data-key="tournamentsWon">Tournaments Won</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="statPlayers">0</div>
+                        <div class="stat-label" data-key="players">Players</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="statMatches">0</div>
+                        <div class="stat-label" data-key="matchesPlayed">Matches Played</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://e.top4top.io/p_3731sfged1.jpg" alt="Esports Arena">
+            </div>
+        </div>
+    </section>
+
+    <section id="players" class="section">
+        <h2 class="section-title"><span data-key="ourPlayers">កីឡាកររបស់យើង</span></h2>
+        <p class="section-subtitle" style="text-align: center; color: #888; margin-bottom: 1.5rem; font-size: 0.85rem;"
+            data-key="meetWarriors">Meet the warriors of Anajak Angkor</p>
+        <div id="playersContainer" class="players-grid"></div>
+    </section>
+
+    <section id="matches" class="section">
+        <h2 class="section-title"><span data-key="matchSchedule">កាលវិភាគប្រកួត</span></h2>
+        <div id="matchesContainer" class="matches-container"></div>
+    </section>
+
+    <section id="achievements" class="section">
+        <h2 class="section-title"><span data-key="ourAchievements">សមិទ្ធផលរបស់យើង</span></h2>
+        <div id="achievementsContainer" class="achievements-grid"></div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="logo" style="justify-content: center; margin-bottom: 0.5rem;">
+                <i class="fas fa-crown logo-icon"></i>
+                <div class="logo-text">
+                    <h1>អាណាចក្រអង្គរ</h1>
+                    <p>ANAJAK ANGKOR</p>
+                </div>
+            </div>
+            <p style="font-size: 0.7rem;" data-key="copyright">&copy; 2026 អាណាចក្រអង្គរ - Anajak Angkor. All rights
+                reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-crown"></i> <span data-key="adminPanel">Admin Panel</span></h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div id="adminContent"></div>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            km: {
+                navHome: "ទំព័រដើម",
+                navAbout: "អំពីយើង",
+                navPlayers: "កីឡាករ",
+                navMatches: "ការប្រកួត",
+                navAchievements: "សមិទ្ធផល",
+                admin: "អ្នកគ្រប់គ្រង",
+                officialTeam: "ក្រុម Esports ផ្លូវការ",
+                heroDesc: "អាណាចក្រអង្គរ - អង្គការ Esports Football ",
+                meetTeam: "ជួបក្រុមរបស់យើង",
+                upcomingMatches: "ការប្រកួតខាងមុខ",
+                aboutUs: "អំពីយើង",
+                aboutText1: "<strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> គឺជា Team Esports Football ។",
+                aboutText2: "បង្កើតឡើងក្នុងឆ្នាំ ២០២៦ ",
+                tournamentsWon: "ជើងឯក",
+                players: "កីឡាករ",
+                matchesPlayed: "ការប្រកួត",
+                ourPlayers: "កីឡាកររបស់យើង",
+                meetWarriors: "ជួបអ្នកចម្បាំងនៃអាណាចក្រអង្គរ",
+                matchSchedule: "កាលវិភាគប្រកួត",
+                ourAchievements: "សមិទ្ធផល",
+                copyright: "រក្សាសិទ្ធិគ្រប់យ៉ាង",
+                adminPanel: "ផ្ទាំងគ្រប់គ្រង",
+                addPlayer: "បន្ថែមកីឡាករ",
+                addMatch: "បន្ថែមការប្រកួត",
+                addAchievement: "បន្ថែមសមិទ្ធផល",
+                deleteAll: "លុបទាំងអស់",
+                confirmDeleteAll: "តើអ្នកប្រាកដចង់លុបទិន្នន័យទាំងអស់មែនទេ?",
+                confirmDelete: "តើអ្នកចង់លុបធាតុនេះទេ?",
+                deleted: "បានលុបដោយជោគជ័យ!"
+            },
+            en: {
+                navHome: "Home",
+                navAbout: "About",
+                navPlayers: "Players",
+                navMatches: "Matches",
+                navAchievements: "Achievements",
+                admin: "Admin",
+                officialTeam: "Official Esports Team",
+                heroDesc: "The Kingdom of  Anajak Angkor - Team Football Esports .",
+                meetTeam: "Meet Our Team",
+                upcomingMatches: "Upcoming Matches",
+                aboutUs: "About Us",
+                aboutText1: "<strong>អាណាចក្រអង្គរ - Anajak Angkor</strong> is Football esports .",
+                aboutText2: "Founded in 2026",
+                tournamentsWon: "Tournaments Won",
+                players: "Players",
+                matchesPlayed: "Matches Played",
+                ourPlayers: "Our Players",
+                meetWarriors: "Meet the warriors of Anajak Angkor",
+                matchSchedule: "Match Schedule",
+                ourAchievements: "Our Achievements",
+                copyright: "All rights reserved",
+                adminPanel: "Admin Panel",
+                addPlayer: "Add Player",
+                addMatch: "Add Match",
+                addAchievement: "Add Achievement",
+                deleteAll: "Delete All",
+                confirmDeleteAll: "Are you sure you want to delete ALL data?",
+                confirmDelete: "Delete this item?",
+                deleted: "Deleted successfully!"
+            }
+        };
+
+        let currentLang = 'km';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            if (event && event.target) event.target.classList.add('active');
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    if (key === 'aboutText1' || key === 'aboutText2') {
+                        element.innerHTML = translations[lang][key];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Data Storage
+        let teamData = {
+            players: [
+
+            ],
+            matches: [
+
+            ],
+            achievements: [
+
+            ],
+            teamInfo: { tournamentsWon: 15, totalMatches: 45 }
+        };
+
+        let isLoggedIn = false;
+
+        function loadData() {
+            const saved = localStorage.getItem('anajakAngkorData');
+            if (saved) {
+                try {
+                    teamData = JSON.parse(saved);
+                } catch (e) {
+                    console.log('Error loading data');
+                }
+            }
+            updatePublicDisplay();
+        }
+
+        function saveData() {
+            localStorage.setItem('anajakAngkorData', JSON.stringify(teamData));
+            updatePublicDisplay();
+        }
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        }
+
+        function updatePublicDisplay() {
+            const playersContainer = document.getElementById('playersContainer');
+            if (playersContainer) {
+                playersContainer.innerHTML = teamData.players.map(player => `
+                    <div class="player-card">
+                        <div class="player-image">
+                            ${player.photo ? `<img src="${player.photo}" alt="${player.name}">` : `<div class="no-photo"><i class="fas ${player.defaultIcon || 'fa-user'}"></i></div>`}
+                        </div>
+                        <div class="player-info">
+                            <h3 class="player-name">${player.name}</h3>
+                            <div class="player-role">${player.role}</div>
+                            <div class="player-stats">${player.stats}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const matchesContainer = document.getElementById('matchesContainer');
+            if (matchesContainer) {
+                matchesContainer.innerHTML = teamData.matches.map(match => `
+                    <div class="match-item">
+                        <div class="match-date"><i class="far fa-calendar"></i> ${match.date}</div>
+                        <div class="match-teams">
+                            <div class="team"><i class="fas fa-crown" style="color:#d4af37;"></i> Anajak Angkor</div>
+                            <div class="vs">VS</div>
+                            <div class="team">${match.opponent}</div>
+                        </div>
+                        <div class="match-result ${match.status === 'win' ? 'win' : ''}">${match.result}</div>
+                    </div>
+                `).join('');
+            }
+
+            const achievementsContainer = document.getElementById('achievementsContainer');
+            if (achievementsContainer) {
+                achievementsContainer.innerHTML = teamData.achievements.map(ach => `
+                    <div class="achievement-card">
+                        <i class="fas ${ach.icon}"></i>
+                        <h3>${ach.title}</h3>
+                        <p>${ach.year}</p>
+                    </div>
+                `).join('');
+            }
+
+            const statTournaments = document.getElementById('statTournaments');
+            const statPlayers = document.getElementById('statPlayers');
+            const statMatches = document.getElementById('statMatches');
+            if (statTournaments) statTournaments.textContent = teamData.teamInfo.tournamentsWon;
+            if (statPlayers) statPlayers.textContent = teamData.players.length;
+            if (statMatches) statMatches.textContent = teamData.teamInfo.totalMatches;
+        }
+
+        // Delete functions - FIXED
+        window.deletePlayer = function (id) {
+            const confirmMsg = currentLang === 'km' ? 'តើអ្នកចង់លុបកីឡាករនេះទេ?' : 'Delete this player?';
+            if (confirm(confirmMsg)) {
+                teamData.players = teamData.players.filter(p => p.id !== id);
+                saveData();
+                refreshAdminLists();
+                alert(currentLang === 'km' ? 'បានលុបកីឡាករដោយជោគជ័យ!' : 'Player deleted successfully!');
+            }
+        };
+
+        window.deleteMatch = function (id) {
+            const confirmMsg = currentLang === 'km' ? 'តើអ្នកចង់លុបការប្រកួតនេះទេ?' : 'Delete this match?';
+            if (confirm(confirmMsg)) {
+                teamData.matches = teamData.matches.filter(m => m.id !== id);
+                teamData.teamInfo.totalMatches = teamData.matches.filter(m => m.status === 'win' || m.status === 'loss').length;
+                saveData();
+                refreshAdminLists();
+                alert(currentLang === 'km' ? 'បានលុបការប្រកួតដោយជោគជ័យ!' : 'Match deleted successfully!');
+            }
+        };
+
+        window.deleteAchievement = function (id) {
+            const confirmMsg = currentLang === 'km' ? 'តើអ្នកចង់លុបសមិទ្ធផលនេះទេ?' : 'Delete this achievement?';
+            if (confirm(confirmMsg)) {
+                teamData.achievements = teamData.achievements.filter(a => a.id !== id);
+                teamData.teamInfo.tournamentsWon = teamData.achievements.length;
+                saveData();
+                refreshAdminLists();
+                alert(currentLang === 'km' ? 'បានលុបសមិទ្ធផលដោយជោគជ័យ!' : 'Achievement deleted successfully!');
+            }
+        };
+
+        window.deleteAll = function (type) {
+            const confirmMsg = currentLang === 'km' ? 'តើអ្នកប្រាកដចង់លុបទិន្នន័យទាំងអស់មែនទេ?' : 'Delete ALL data?';
+            if (confirm(confirmMsg)) {
+                if (type === 'players') {
+                    teamData.players = [];
+                } else if (type === 'matches') {
+                    teamData.matches = [];
+                    teamData.teamInfo.totalMatches = 0;
+                } else if (type === 'achievements') {
+                    teamData.achievements = [];
+                    teamData.teamInfo.tournamentsWon = 0;
+                }
+                saveData();
+                refreshAdminLists();
+                alert(currentLang === 'km' ? 'បានលុបទិន្នន័យទាំងអស់ដោយជោគជ័យ!' : 'All data deleted!');
+            }
+        };
+
+        window.uploadPhotoForPlayer = function (playerId) {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const base64 = await fileToBase64(file);
+                    const player = teamData.players.find(p => p.id === playerId);
+                    if (player) {
+                        player.photo = base64;
+                        saveData();
+                        refreshAdminLists();
+                        alert(currentLang === 'km' ? 'បានដាក់រូបថតដោយជោគជ័យ!' : 'Photo uploaded!');
+                    }
+                }
+            };
+            input.click();
+        };
+
+        function refreshAdminLists() {
+            const playersList = document.getElementById('playersList');
+            if (playersList) {
+                playersList.innerHTML = teamData.players.map(player => `
+                    <div class="admin-item-card">
+                        <div class="admin-item-info">
+                            <h4>${player.name}</h4>
+                            <p>${player.role}</p>
+                        </div>
+                        <div class="admin-item-actions">
+                            <button class="icon-btn" onclick="uploadPhotoForPlayer(${player.id})" title="Upload Photo"><i class="fas fa-camera"></i></button>
+                            <button class="icon-btn delete" onclick="deletePlayer(${player.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const matchesList = document.getElementById('matchesList');
+            if (matchesList) {
+                matchesList.innerHTML = teamData.matches.map(match => `
+                    <div class="admin-item-card">
+                        <div class="admin-item-info">
+                            <h4>${match.opponent}</h4>
+                            <p>${match.date} - ${match.result}</p>
+                        </div>
+                        <div class="admin-item-actions">
+                            <button class="icon-btn delete" onclick="deleteMatch(${match.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const achievementsList = document.getElementById('achievementsList');
+            if (achievementsList) {
+                achievementsList.innerHTML = teamData.achievements.map(ach => `
+                    <div class="admin-item-card">
+                        <div class="admin-item-info">
+                            <h4>${ach.title}</h4>
+                            <p>${ach.year}</p>
+                        </div>
+                        <div class="admin-item-actions">
+                            <button class="icon-btn delete" onclick="deleteAchievement(${ach.id})" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function setupAdminForms() {
+            const addPlayerForm = document.getElementById('addPlayerForm');
+            if (addPlayerForm) {
+                addPlayerForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    const photoFile = document.getElementById('playerPhoto').files[0];
+                    let photoBase64 = null;
+                    if (photoFile) photoBase64 = await fileToBase64(photoFile);
+                    teamData.players.push({
+                        id: Date.now(),
+                        name: document.getElementById('playerName').value,
+                        role: document.getElementById('playerRole').value,
+                        stats: document.getElementById('playerStats').value,
+                        photo: photoBase64,
+                        defaultIcon: "fa-user-ninja"
+                    });
+                    saveData();
+                    refreshAdminLists();
+                    addPlayerForm.reset();
+                    alert(currentLang === 'km' ? 'បានបន្ថែមកីឡាករដោយជោគជ័យ!' : 'Player added!');
+                };
+            }
+
+            const addMatchForm = document.getElementById('addMatchForm');
+            if (addMatchForm) {
+                addMatchForm.onsubmit = (e) => {
+                    e.preventDefault();
+                    const result = document.getElementById('matchResult').value;
+                    teamData.matches.push({
+                        id: Date.now(),
+                        date: document.getElementById('matchDate').value,
+                        opponent: document.getElementById('matchOpponent').value,
+                        result: result === 'WIN' ? 'WIN' : result === 'LOSS' ? 'LOSS' : 'Upcoming',
+                        status: result === 'WIN' ? 'win' : result === 'LOSS' ? 'loss' : 'upcoming'
+                    });
+                    teamData.teamInfo.totalMatches = teamData.matches.filter(m => m.status === 'win' || m.status === 'loss').length;
+                    saveData();
+                    refreshAdminLists();
+                    addMatchForm.reset();
+                    alert(currentLang === 'km' ? 'បានបន្ថែមការប្រកួតដោយជោគជ័យ!' : 'Match added!');
+                };
+            }
+
+            const addAchievementForm = document.getElementById('addAchievementForm');
+            if (addAchievementForm) {
+                addAchievementForm.onsubmit = (e) => {
+                    e.preventDefault();
+                    teamData.achievements.push({
+                        id: Date.now(),
+                        title: document.getElementById('achievementTitle').value,
+                        year: document.getElementById('achievementYear').value,
+                        icon: document.getElementById('achievementIcon').value
+                    });
+                    teamData.teamInfo.tournamentsWon = teamData.achievements.length;
+                    saveData();
+                    refreshAdminLists();
+                    addAchievementForm.reset();
+                    alert(currentLang === 'km' ? 'បានបន្ថែមសមិទ្ធផលដោយជោគជ័យ!' : 'Achievement added!');
+                };
+            }
+
+            const settingsForm = document.getElementById('settingsForm');
+            if (settingsForm) {
+                settingsForm.onsubmit = (e) => {
+                    e.preventDefault();
+                    teamData.teamInfo.tournamentsWon = parseInt(document.getElementById('settingsTournaments').value);
+                    teamData.teamInfo.totalMatches = parseInt(document.getElementById('settingsMatches').value);
+                    saveData();
+                    refreshAdminLists();
+                    alert(currentLang === 'km' ? 'បានធ្វើបច្ចុប្បន្នភាពដោយជោគជ័យ!' : 'Settings updated!');
+                };
+            }
+        }
+
+        window.switchTab = function (tab) {
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const targetTab = document.getElementById(`${tab}Tab`);
+            if (targetTab) targetTab.classList.add('active');
+            if (event && event.target) event.target.classList.add('active');
+        };
+
+        function showAdminPanel() {
+            const adminContent = document.getElementById('adminContent');
+            adminContent.innerHTML = `
+                <div class="admin-tabs">
+                    <button class="tab-btn active" onclick="switchTab('players')"><i class="fas fa-users"></i> Players</button>
+                    <button class="tab-btn" onclick="switchTab('matches')"><i class="fas fa-futbol"></i> Matches</button>
+                    <button class="tab-btn" onclick="switchTab('achievements')"><i class="fas fa-trophy"></i> Achievements</button>
+                    <button class="tab-btn" onclick="switchTab('settings')"><i class="fas fa-cog"></i> Settings</button>
+                </div>
+                <div id="playersTab" class="tab-pane active">
+                    <div class="admin-form">
+                        <h3><i class="fas fa-user-plus"></i> ${currentLang === 'km' ? 'បន្ថែមកីឡាករ' : 'Add Player'}</h3>
+                        <form id="addPlayerForm">
+                            <div class="form-group"><label>${currentLang === 'km' ? 'ឈ្មោះកីឡាករ' : 'Player Name'}</label><input type="text" id="playerName" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'តួនាទី' : 'Role'}</label><input type="text" id="playerRole" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'ស្ថិតិ' : 'Stats'}</label><input type="text" id="playerStats" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'រូបថត' : 'Photo'}</label><input type="file" id="playerPhoto" accept="image/*"></div>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> ${currentLang === 'km' ? 'បន្ថែម' : 'Add'}</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteAll('players')" style="margin-left: 0.5rem;"><i class="fas fa-trash"></i> ${currentLang === 'km' ? 'លុបទាំងអស់' : 'Delete All'}</button>
+                        </form>
+                    </div>
+                    <h3><i class="fas fa-list"></i> ${currentLang === 'km' ? 'បញ្ជីកីឡាករ' : 'Players List'}</h3>
+                    <div id="playersList" class="admin-items-grid"></div>
+                </div>
+                <div id="matchesTab" class="tab-pane">
+                    <div class="admin-form">
+                        <h3><i class="fas fa-plus-circle"></i> ${currentLang === 'km' ? 'បន្ថែមការប្រកួត' : 'Add Match'}</h3>
+                        <form id="addMatchForm">
+                            <div class="form-group"><label>${currentLang === 'km' ? 'កាលបរិច្ឆេទ' : 'Date'}</label><input type="text" id="matchDate" placeholder="e.g., Apr 10, 2026" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'គូប្រកួត' : 'Opponent'}</label><input type="text" id="matchOpponent" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'លទ្ធផល' : 'Result'}</label><select id="matchResult"><option>Upcoming</option><option>WIN</option><option>LOSS</option></select></div>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> ${currentLang === 'km' ? 'បន្ថែម' : 'Add'}</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteAll('matches')" style="margin-left: 0.5rem;"><i class="fas fa-trash"></i> ${currentLang === 'km' ? 'លុបទាំងអស់' : 'Delete All'}</button>
+                        </form>
+                    </div>
+                    <h3><i class="fas fa-list"></i> ${currentLang === 'km' ? 'បញ្ជីការប្រកួត' : 'Matches List'}</h3>
+                    <div id="matchesList" class="admin-items-grid"></div>
+                </div>
+                <div id="achievementsTab" class="tab-pane">
+                    <div class="admin-form">
+                        <h3><i class="fas fa-plus-circle"></i> ${currentLang === 'km' ? 'បន្ថែមសមិទ្ធផល' : 'Add Achievement'}</h3>
+                        <form id="addAchievementForm">
+                            <div class="form-group"><label>${currentLang === 'km' ? 'ចំណងជើង' : 'Title'}</label><input type="text" id="achievementTitle" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'ឆ្នាំ' : 'Year'}</label><input type="text" id="achievementYear" required></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'រូបតំណាង' : 'Icon'}</label><input type="text" id="achievementIcon" value="fa-trophy"></div>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> ${currentLang === 'km' ? 'បន្ថែម' : 'Add'}</button>
+                            <button type="button" class="btn btn-danger" onclick="deleteAll('achievements')" style="margin-left: 0.5rem;"><i class="fas fa-trash"></i> ${currentLang === 'km' ? 'លុបទាំងអស់' : 'Delete All'}</button>
+                        </form>
+                    </div>
+                    <h3><i class="fas fa-list"></i> ${currentLang === 'km' ? 'បញ្ជីសមិទ្ធផល' : 'Achievements List'}</h3>
+                    <div id="achievementsList" class="admin-items-grid"></div>
+                </div>
+                <div id="settingsTab" class="tab-pane">
+                    <div class="admin-form">
+                        <h3><i class="fas fa-chart-line"></i> ${currentLang === 'km' ? 'ស្ថិតិក្រុម' : 'Team Statistics'}</h3>
+                        <form id="settingsForm">
+                            <div class="form-group"><label>${currentLang === 'km' ? 'ជើងឯកដែលឈ្នះ' : 'Tournaments Won'}</label><input type="number" id="settingsTournaments" value="${teamData.teamInfo.tournamentsWon}"></div>
+                            <div class="form-group"><label>${currentLang === 'km' ? 'ចំនួនប្រកួតសរុប' : 'Total Matches'}</label><input type="number" id="settingsMatches" value="${teamData.teamInfo.totalMatches}"></div>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> ${currentLang === 'km' ? 'រក្សាទុក' : 'Update'}</button>
+                        </form>
+                        <button onclick="logout()" class="btn btn-danger" style="margin-top: 1rem;"><i class="fas fa-sign-out-alt"></i> ${currentLang === 'km' ? 'ចាកចេញ' : 'Logout'}</button>
+                    </div>
+                </div>
+            `;
+            refreshAdminLists();
+            setupAdminForms();
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            document.getElementById('adminModal').style.display = 'none';
+        }
+
+        function showLoginModal() {
+            const adminContent = document.getElementById('adminContent');
+            adminContent.innerHTML = `
+                <div style="max-width: 350px; margin: 0 auto;">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem;"><i class="fas fa-lock"></i> Admin Login</h3>
+                    <form id="loginForm">
+                        <div class="form-group"><label>Username</label><input type="text" id="loginUsername" required></div>
+                        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" required></div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-sign-in-alt"></i> Login</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1rem; color: #888; font-size: 0.8rem;">Demo: admin / admin123</p>
+                </div>
+            `;
+            document.getElementById('loginForm').onsubmit = (e) => {
+                e.preventDefault();
+                const username = document.getElementById('loginUsername').value;
+                const password = document.getElementById('loginPassword').value;
+                if (username === 'admin' && password === 'admin168') {
+                    isLoggedIn = true;
+                    showAdminPanel();
+                } else {
+                    alert('Invalid credentials!');
+                }
+            };
+        }
+
+        const modal = document.getElementById('adminModal');
+        const adminBtn = document.getElementById('adminLoginBtn');
+        if (adminBtn) {
+            adminBtn.onclick = (e) => {
+                e.preventDefault();
+                modal.style.display = 'block';
+                if (!isLoggedIn) showLoginModal();
+                else showAdminPanel();
+            };
+        }
+
+        const closeModal = document.querySelector('.close-modal');
+        if (closeModal) {
+            closeModal.onclick = () => modal.style.display = 'none';
+        }
+
+        window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
+
+        const menuBtn = document.querySelector('.menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') !== '#') {
+                    e.preventDefault();
+                    if (navLinks) navLinks.classList.remove('active');
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        loadData();
+        setLanguage('km');
+    </script>
+</body>
+
+</html>
